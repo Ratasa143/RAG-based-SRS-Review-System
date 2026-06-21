@@ -1,6 +1,6 @@
 # RAG-Based SRS Review System
 
-## Week 1 - Briana's Setup (re_standards Knowledge Base)
+## Week 1 - namrata's Setup (re_standards Knowledge Base)
 
 ### What I did
 - Installed Ollama + Mistral 7B (local LLM)
@@ -8,7 +8,7 @@
 - Chunked IEEE 830 + INCOSE documents and embedded them
 - re_standards collection now has 201 chunks ready for retrieval
 
-### Week 2 - Briana's Setup (Dataset Labeling & Evaluation Pipeline)
+### Week 2 - namrata's Setup (Dataset Labeling & Evaluation Pipeline)
 
 ### What I did
 - Downloaded PURE dataset from Zenodo (https://zenodo.org/records/1414117)
