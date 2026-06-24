@@ -1,0 +1,13 @@
+INCOSE Requirement Writing Guide
+
+Use SHALL instead of SHOULD.
+
+Each requirement should describe one behavior.
+
+Avoid combining multiple requirements.
+
+Avoid subjective words.
+
+Use measurable values whenever possible.
+
+Keep requirements simple and testable.

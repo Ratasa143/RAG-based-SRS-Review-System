@@ -1,0 +1,25 @@
+IEEE 29148 Requirement Characteristics
+
+A good requirement should be:
+
+Correct
+
+Complete
+
+Consistent
+
+Unambiguous
+
+Verifiable
+
+Traceable
+
+Feasible
+
+Necessary
+
+Each requirement should express one idea.
+
+Requirements should be measurable.
+
+Avoid vague words.
