@@ -1,0 +1,1491 @@
+﻿req_id,req_text,source,true_label,notes
+REQ-001,"Software Requirements
+Specification
+for
+KeePass Password Safe",keepass,missing,
+REQ-002,"This document includes software requirements for KeePass Password Safe, release number 1.10. KeePass Password Safe is an OSI Certified Open Source Software distributed under the terms of the GNU General Public License Version 2 or under. The system gives resolution to memorizing passwords problem. Its purpose is to keep all of the user’s passwords, data, email accounts, usernames and URLs stored in a very
+secure, encrypted database, protected by a Master Password. The system is very small so it can be easily transferred from one computer to another. It provides several functionalities on the already encrypted data and the new ones to be inserted. The database produced, is protected by a Master Password only known by
+its inventor with no backup if lost.",keepass,missing,
+REQ-003,"· When writing this document it was inherited that all requirements have the same priority.
+· First there is presented an overall view about KeePass and then all features and functions are
+analyzed in detail.",keepass,missing,
+REQ-004,Intended Audience and Reading Suggestions,keepass,missing,
+REQ-005,"This requirement document contains general information about KeePass, main classes and use cases, functions, features and special technologies. It describes in detail all that KeePass needs to work properly and with safety.
+The rest of the document is divided into chapters for better understanding.",keepass,missing,
+REQ-006,"In chapter 2 an overall description of KeePass is provided. First product perspective is presented with product features and main functions. Then follow user classes and characteristics, operating environments that KeePass supports as well as design and implementation constraints. After all that user documentation is presented and will provide you with more details about each feature’s technology.",keepass,missing,
+REQ-007,"In chapter 3 most important features are presented with detailed description, use cases and requirements.",keepass,missing,
+REQ-008,In chapter 4 user and communication interfaces are described.,keepass,missing,
+REQ-009,In chapter 5 requirements about safety and performance are presented.,keepass,missing,
+REQ-010,"KeePass Password Safe is a small system that can be easily transferred from computer to computer by a simple USB stick. Its purpose is to solve a problem that really bothers many people today when they have to choose from memorizing a lot of passwords to be secure or to use every time the same one so they won’t forget it but risk be found out by others. So it provides you a very secure, encrypted database where you can keep inside all your passwords, usernames, email accounts, URLs, notes without any risk for others to find them. That is because KeePass Password Safe can lock every database with only one Master Password and/or key file. There are no duplicates, anywhere in your computer, of this Master Password and/or key file so in case of lost database cannot be opened by anyone. Not even by you and that is because there is no recovery password or back door.
+KeePass Password Safe beside security also provides you with several functionalities in order to keep your database organized and up to date. Those are analyzed in the following pages.
+More about KeePass you can find out at http://keepass.info/",keepass,missing,
+REQ-011,More about KeePass can be found at,keepass,missing,
+REQ-012,"http://sourceforge.net/projects/keepass/
+In this website you can find out more about the project and discuss any questions in the forums. You can go back and look at previous releases, code and problems that have been solved. There you can also find information about the developers as well as the project’s main characteristics such as programming language and algorithms",keepass,missing,
+REQ-013,"http://keepass.info/
+This is project’s official website where you can find links to all above and also find features
+available for downloading such as language translations and plug-ins.",keepass,missing,
+REQ-014,"KeePass consists of a database which contains data for one or more users. Each user’s data are divided into groups and subgroups so that they are organized in a form that serves right the user. Every user has a unique Master Key which can be simple or composite and its combination opens uniquely the database. If lost there
+is no recovery. Groups and subgroups contain entries with usernames, passwords URLs etc that can be sent or copied to websites, application and accounts. There is also the ability for a onetime key creation to be used once in a transaction without the risk of reused by others for any reason.
+In the diagram below there are the main components of the system, subsystem interconnections and external interfaces to help you understand the main idea of KeePass. All of them are analyzed with more details in this document.",keepass,missing,
+REQ-015,KeePass Password Safe provides the user with the following functions:,keepass,missing,
+REQ-016,"Database – New, Open, Close, Save, Print, Search, Import, Export
+User can create a new database locked by a Master Key. The database can be opened and closed whenever user wants it. Changes on the data are permitted and the changes can be saved. The user also can print all data in order to keep them with him even when a computer is not available. Also the user can search the database using key words through a search engine provided with the software. Last but not least, the database can be imported and/or exported from/to the Internet.",keepass,ambiguous,
+REQ-017,"Group/Subgroup – Add, Modify, Delete, Find
+Data are organized in groups and subgroups in the order that user wants and finds effective.
+Those groups can be modified whenever. New groups and subgroups can be added easily and can be deleted the same way. The feature of searching can be applied in just one group and not in the whole database if wanted.",keepass,ambiguous,
+REQ-018,"Entry – Add, View/Edit, Duplicate, Delete
+A new entry can be added in any group or subgroup and it contains title, username, password, URL and notes. Not all fields are required for an entry. An entry can be duplicated and deleted in the click of a button.",keepass,ok,
+REQ-019,"Change Language
+At KeePass website there are available language translations that can be downloaded and applied easily.",keepass,ok,
+REQ-020,"Auto-Type
+The user can select a sequence of keypresses that KeePass will be able to perform and send them to any window or browser.",keepass,ok,
+REQ-021,"Command Line Options
+The user can pass a file path in the command line in order for KeePass to open this file at startup.",keepass,ok,
+REQ-022,"Composite Master Key
+To open a database you must use all key sources such as password, key file and/or Windows account details that were used when the Master Key was created. All these together form the Composite Master Key and are all required in order to open the database. So the user cannot use a combination of them to unlock the database.",keepass,ok,
+REQ-023,"Configuration
+This feature is used to explain how KeePass store its configuration and where.
+· Import/Export
+KeePass can support importing data from CSV files, Code Wallet, Password Safe and
+Personal Vault.",keepass,ambiguous,
+REQ-024,"Integration
+KeePass uses Global Hot Key to restore KeePass main window and Limit to single instance option to run only one instance of KeePass at a time.",keepass,ok,
+REQ-025,"Password Generator
+There are available generations based on character sets and based on patterns the first for generating random passwords and the second for creating passwords which require specific patterns. There is also available generating passwords that follow rules which are
+determined further down on this document. Then there are security-reducing options which reduce the security of the passwords they are applied to. Finally there are configuring
+settings of automatically generated passwords for new entries so that a random password will automatically be created by KeePass when a new entry is wanted.",keepass,ambiguous,
+REQ-026,"Secure Edit Controls
+KeePass offers the ability for passwords and data to be appeared behind asterisks when the user wants it. When this option is turned on, secure edit controls stronger than the ones of Windows are protecting your data and no one can access them, see them or steal them.",keepass,ambiguous,
+REQ-027,"TAN Support
+KeePass uses TAN-Transaction Authentication Numbers for even more security. This
+feature can be used for generating one time passwords so that there won’t be any chance, for anyone to access e.g. your bank account even if he finds out that password. That is because when the password is entered one time it becomes useless. TANs can be added using the TANs wizard.",keepass,ok,
+REQ-028,"URL Field
+The URL field supports various special protocols and placeholders and can be used for
+Standard capabilities where URL field can execute valid URLs for which a protocol handler is defined. In addition to that, KeePass supports all registered protocols that Internet Explorer supports. URL field also offers the ability of executed command lines instead of URLs. Also, placeholders can be used that will be automatically replaced when the URL is executed.",keepass,ambiguous,
+REQ-029,"Using Stored Passwords
+Passwords that are stored in the database can be copied to website accounts and applications with security and without retyping them again. This can be done by several methods such us Context-Sensitive Password List, Drag and Drop, Auto-Type and KeeForm. All of them are explained better further down.",keepass,ok,
+REQ-030,"Lock Workspace
+Last but not least at all is the locking workspace feature. This feature is turned on and locks the database when minimized. So to unlock it the Master Key is required again. The workspace can be locked manually as well by selecting this option from File menu.",keepass,ok,
+REQ-031,User Classes and Characteristics,keepass,missing,
+REQ-032,"Advanced end users: users that are familiar with programming and can personalize their database by creating auto-types, using command line options and generally can use features and maybe expand their use by adding more functions.",keepass,missing,
+REQ-033,End users/Desktop: users with no particular knowledge on computer programming. They just use the database for organizing their data and to keep them safe.,keepass,missing,
+REQ-034,System administrators: administrators working on computers that support a lot of accounts and personal data for other users. Using KeePass the administrator can save all data with no risk of leak to third persons.,keepass,missing,
+REQ-035,Science/Research Telecommunications: for organizing data that have to do with lots of people and applications,keepass,missing,
+REQ-036,Industry: for one-time passwords that can be used for testing controls or for expired entries to gain access in particular systems and programs.,keepass,missing,
+REQ-037,Operating Environment,keepass,missing,
+REQ-038,"KeePass should run on Operating Systems: WINE, 32-bit MS Windows (95/98), 32-bit MS Windows (NT/2000/XP), All 32-bit MS Windows (95/98/NT/2000/XP),Win2K, WinXP, Microsoft Windows Server 2003.
+The user interfaces used are: NET/Mono, Win32 (MS Windows)
+All new releases contain Filename Architecture Type
+KeePass-1.x-Setup.exe i386 .exe (32-bit Windows)
+KeePass-1.x-Src.zip Platform-Independent Source .zip
+KeePass-1.x.zip i386 .zip
+and release notes witch describe what has changed and what has been added.
+Nothing more than these is required for a fully functional KeePass.
+KeePass should run perfectly on older releases without any features limitations or data loss.",keepass,ambiguous,
+REQ-039,Design and Implementation Constraints,keepass,missing,
+REQ-040,"Timing requirements in KeePass Password Safe:
+When a password is copied for any reason, (e.g. copy to an application, account, and website) it remains in the memory for only 10 seconds. After 10 seconds pass there is nothing to paste and you have to recopy again. That provides security in a case a password is copied and not pasted anywhere so no one can find it out by pasting later.
+Language Requirements in KeePass Password Safe:
+Not in all translations translated help files and tutorials are available.
+Specific Technologies used in KeePass Password Safe:",keepass,ok,
+REQ-041,"In order to keep the user’s data fully protected, 2 very secure algorithms are used:
+Cipher Block Size Key Size Advanced Encryption Standard (AES / Rijndael) 128 bits 256 bits Twofish 128 bits 256 bits In both algorithms every time the user saves a database, a random 128-bit initialization vector is generated.",keepass,ok,
+REQ-042,"For the creation of the 256-bit key the Cipher uses, the Secure Hash Algorithm SHA-256 is used.",keepass,ok,
+REQ-043,"All the bytes needed for the Initialization Vector, the master key salt, etc are generated via pseudorandom sources: current tick count, performance counter, system date/time, mouse cursor position, memory status, active window focus handles, window message stack, process heap status, process startup information and several system information structures.",keepass,ok,
+REQ-044,"When the KeePass is active, all passwords are stored encrypted in process memory so in order for them to be completely safe the ARC4 encryption algorithm is used, using a random 12 bytes long key.",keepass,ok,
+REQ-045,"By downloading KeePass Password Safe, the user also gets:",keepass,missing,
+REQ-046,A compiled HTML Help file with a tutorial and full help on all features provided,keepass,missing,
+REQ-047,"A KeePass Internet shortcut which take the user in the system’s official website where are available downloads, translations, plug-ins and extensions.",keepass,missing,
+REQ-048,System features are organized by use cases and functional hierarchy so that the main functions of the system will be understandable.,keepass,missing,
+REQ-049,This feature provides the ability to create a new database,keepass,ambiguous,
+REQ-050,It is the first thing a user must do to begin using KeePass. Its main function is the determination of the master password that will unlock the database from now on,keepass,missing,
+REQ-051,Stimulus/Response Sequences,keepass,missing,
+REQ-052,User opens KeePass and select New->Database,keepass,ok,
+REQ-053,User writes his private Master Password and/or selects Key File,keepass,ok,
+REQ-054,Master Password confirmation: the user retypes Master Password,keepass,ok,
+REQ-055,The main database window opens,keepass,ok,
+REQ-056,Alternative Data Flows,keepass,missing,
+REQ-057,Alternative Data Flow 1,keepass,missing,
+REQ-058,Alternative Data Flow 2,keepass,missing,
+REQ-059,Alternative Data Flow 3,keepass,missing,
+REQ-060,The user does not determines a Master Password,keepass,ok,
+REQ-061,A message is appeared which prompts him to enter a password or key file,keepass,ok,
+REQ-062,Functional Requirements,keepass,missing,
+REQ-063,REQ-1: KeePass must be downloaded and installed,keepass,ambiguous,
+REQ-064,REQ-2: Master Password has no limits in length. A whole sentence can be used with more than 100 characters.,keepass,ok,
+REQ-065,This feature allows the user to open an existing database.,keepass,ok,
+REQ-066,"When choosing to open a database a user is transferred to his documents where he navigates to find the database he wants. When the database is found, the master password is wanted so that the database will be unlocked. Once this is done the user is free to access his data.",keepass,ambiguous,
+REQ-068,User opens KeePass and select Open->Database,keepass,ok,
+REQ-069,User navigates through his folders,keepass,ok,
+REQ-070,User selects a database,keepass,ok,
+REQ-071,User types Master Password,keepass,ok,
+REQ-075,User selects a type of folder non suitable for database,keepass,ok,
+REQ-076,A message “file not found” appears,keepass,ok,
+REQ-077,User selects another folder,keepass,ok,
+REQ-079,Master Password is wrong,keepass,ok,
+REQ-080,A message “invalid/wrong key” appears,keepass,ok,
+REQ-081,User types another master key,keepass,ok,
+REQ-084,Folder selected must be of type the database can read and that is “name”.kdb,keepass,ok,
+REQ-085,This feature allows the user to save any changes or updates he has performed to his database.,keepass,ambiguous,
+REQ-086,"When a database is opened, the user can access his passwords, organize them into new
+groups and subgroups, delete and add entries and so much more. But when it is time for the database to close or during his working on the database, he can save the changes made.",keepass,ambiguous,
+REQ-088,User opens KeePass and changes his data,keepass,ok,
+REQ-089,User selects save database,keepass,ok,
+REQ-092,User gives a new database name,keepass,ok,
+REQ-093,New database is saved and opens with the same master password,keepass,ok,
+REQ-095,User continues working after he saves the database,keepass,ok,
+REQ-097,User wants to exit KeePass,keepass,ok,
+REQ-098,A message is appeared asking if he wants to save the database,keepass,ok,
+REQ-099,"User selects yes and exits, or no and exits or cancel and return to database",keepass,ok,
+REQ-100,Alternative Data Flow 4,keepass,missing,
+REQ-101,Users minimizes the database,keepass,ok,
+REQ-102,A message is appeared asking if he wants to save the database before locking,keepass,ok,
+REQ-104,Databases must have different names or else the previews one will be replace if selected,keepass,ok,
+REQ-105,This feature allows user to print a selection of data that are stored in the database.,keepass,ambiguous,
+REQ-106,"While working on the database, the user has the option to print data from his database. This can be done by selecting print. When this happens, a list of data types that can be printed are shown and the user can select the data to be printed. More specifically fields that can be selected for printing are: Backup entries, which contain entries in the back up group, password groups, group tree, title, username, password, URL, notes, creation time, last access, last modification, expires, icon, UUID and attachment.",keepass,ok,
+REQ-108,User selects print from file menu,keepass,ok,
+REQ-109,"The list of options opens with checked the fields: password groups, title, user name, password, URL, notes",keepass,ok,
+REQ-110,User returns on the main window,keepass,ok,
+REQ-113,3a. User selects some more fields and/or unselects some others.,keepass,ok,
+REQ-115,User unselects all fields,keepass,ok,
+REQ-116,An empty report is printed,keepass,ok,
+REQ-120,There must be entries in the database in order for them to be printed,keepass,ok,
+REQ-121,This feature allows user to search for keywords in his database.,keepass,,
+REQ-122,"There is the ability to search in the database for usernames, groups, passwords, URLs, notes and titles. This is very useful when the user needs to find out very quickly which password is required in one account or what username he has put on another account. It is not necessary to write in the search field all characters. By writing just one character the database will present all data which contains it or are related with it.",keepass,,
+REQ-124,"User types a password, user name, URL, word of notes, title or group that exist in the database",keepass,,
+REQ-125,The list of data related to search word are appeared in the main window,keepass,,
+REQ-128,User types two or more words in the search field,keepass,,
+REQ-129,Nothing appears in the main window,keepass,,
+REQ-131,User does not type anything,keepass,,
+REQ-134,"User types part or even just one character of password, user name, URL, word
+of notes, title or group",keepass,,
+REQ-136,User types data not related with the database,keepass,,
+REQ-139,"All data related to the word must be shown. For example if user types “abc” and abc is part of a password and of a username, both entries must be shown",keepass,,
+REQ-140,This feature is used to keep data organized in categories for easier access.,keepass,,
+REQ-141,There is the ability to organize data into groups and subgroups. The user can create a new group or subgroups into an existing group. When creating a group/subgroup the user must select a name and then he can add entries into it.,keepass,,
+REQ-143,User opens KeePass and selects to add new group/subgroup,keepass,,
+REQ-144,User types a name and has the option to select an image,keepass,,
+REQ-145,The group/subgroup is created,keepass,,
+REQ-146,The access returns to the database main window,keepass,,
+REQ-149,User leaves the group/subgroup name field empty,keepass,,
+REQ-150,A message is appeared “Add a name for the group/subgroup”,keepass,,
+REQ-152,The access returns to main window,keepass,,
+REQ-154,A name is required in order for the new group/subgroup to be created,keepass,,
+REQ-155,A subgroup cannot be created when no group is selected,keepass,,
+REQ-156,Modify group/subgroup,keepass,,
+REQ-157,This feature allows user to change a name given to a group/subgroup.,keepass,,
+REQ-158,"When user wants to change a group or subgroup’s name he has the ability to do that by
+modifying it.",keepass,,
+REQ-160,User opens KeePass and selects modify group/subgroup,keepass,,
+REQ-161,User types the new name and has the option to select an image,keepass,,
+REQ-162,The group/subgroup changes name,keepass,,
+REQ-169,The group/subgroup’s name remains the same,keepass,,
+REQ-172,A name is required in order for the group/subgroup to be renamed,keepass,,
+REQ-173,Delete Group/Subgroup,keepass,,
+REQ-174,This feature allows the user to delete a group/subgroup.,keepass,,
+REQ-175,"When a user wants to delete an existing group/subgroup he can do this by selecting Delete group/subgroup from the edit menu. In order for that to happen, he must have chosen first a group/subgroup.",keepass,,
+REQ-177,User opens KeePass and selects a group/subgroup,keepass,,
+REQ-178,User selects to delete the group/subgroup,keepass,,
+REQ-179,A message is appeared to confirm the delete,keepass,,
+REQ-180,The group/subgroup is deleted,keepass,,
+REQ-181,The main window opens,keepass,,
+REQ-184,The group/subgroup is not deleted,keepass,,
+REQ-186,This feature allows user to find data into a specific group/subgroup.,keepass,,
+REQ-187,"The user selects a group/subgroup and then he chooses “find in this group” from file menu. Then a window appears which prompts the user to write a sequence of characters (letters and numbers) from one character to 200 (or more). After that a menu of options to choose from appears and the user can select to search for: title, user name, password, URL, notes, group name. Search results appear in the main window.",keepass,,
+REQ-189,User opens KeePass and selects to find something in a selected group/subgroup,keepass,,
+REQ-190,User types the word to search for,keepass,,
+REQ-191,User selects the fields which will be searched,keepass,,
+REQ-192,Results appears at the database main window,keepass,,
+REQ-195,User leaves the find field empty,keepass,,
+REQ-196,All data from the group/subgroup appear,keepass,,
+REQ-198,User leaves all search in boxes unchecked,keepass,,
+REQ-201,The main window appears,keepass,,
+REQ-207,In order to find something in a group a word must be placed in the find field,keepass,,
+REQ-208,This feature adds a new entry on the database.,keepass,,
+REQ-209,"The user can add a new entry on the database by clicking add entry on the main menu. When he does this, a window opens which is actually a form. In this form the user completes the fields he wants. He can fill in fields like: group where the entry will be added, title, user name, password, repeat password, URL, notes, expiration date and attachment file. Not all fields are required for an entry to be created. In fact an entry can be added with no fields at all. By selecting OK the entry is created in the group selected.",keepass,,
+REQ-211,User opens KeePass and selects to add an entry,keepass,,
+REQ-212,"User fills in the form, as many fields as he wants, from 1 to 9",keepass,,
+REQ-213,The new entry is added in the selected group,keepass,,
+REQ-216,User fills in the password field,keepass,,
+REQ-217,The repeat password field is not identical with the password field,keepass,,
+REQ-218,A message appears “the repeated password must be identical with the password,keepass,,
+REQ-220,User leaves all fields empty,keepass,,
+REQ-222,The help file or URL field features or Autotype is opened,keepass,,
+REQ-226,An entry must belong to a group to be created,keepass,,
+REQ-227,When the password field is completed the repeat password field must be completed,keepass,,
+REQ-228,REQ-13: Password field and repeat password field must be identical,keepass,,
+REQ-229,This feature allows the user to change or modify an existing entry.,keepass,,
+REQ-230,"The user can modify the context of an entry he already has added. This can be done by
+selecting view/edit entry. In order for that to happen, the user must select an entry first.
+When he does this, the form he filled in when he created or last modified the entry open.
+Then the user can change the group, title, user name, password, URL, notes, expiration date and attachment file. His changes are saved by clicking OK.",keepass,,
+REQ-232,User opens KeePass and selects to view/edit an existing entry,keepass,,
+REQ-233,User changes the fields he wants in the form,keepass,,
+REQ-234,The modified entry is saved in the selected group,keepass,,
+REQ-237,User changes the password field,keepass,,
+REQ-243,The main window opens and the selected entry is not modified,keepass,,
+REQ-245,ìAn entry must be selected to be viewed or modified,keepass,,
+REQ-246,"ìWhen the password field is changed the repeat password field must be
+Changed and be identical with password field",keepass,,
+REQ-247,This feature creates an exact copy of the selected entry in the same group.,keepass,,
+REQ-248,The user can create an exact copy of an entry. This can be done by selecting an entry and clicking duplicate entry. When this is done the new entry is added in the same group were the first was.,keepass,,
+REQ-250,User opens KeePass and selects an existing entry,keepass,,
+REQ-251,User duplicates entry,keepass,,
+REQ-252,The new entry is added below the first one,keepass,,
+REQ-255,An entry must be selected before it is duplicated,keepass,,
+REQ-256,This feature allows the user to delete an existing entry,keepass,,
+REQ-257,The user can delete an existing entry by selecting it and then by clicking delete entry. When this is done a message appears and informs the user that if he deletes the entry he won’t be able to restore it back.,keepass,,
+REQ-259,User opens KeePass and selects to delete an existing entry,keepass,,
+REQ-260,A message appears “Are you sure you want to delete the selected entry?”,keepass,,
+REQ-261,The deleted entry is permanently removed from the database,keepass,,
+REQ-264,User selects more than one entry,keepass,,
+REQ-267,REQ-17: An entry must be selected to be deleted,keepass,,
+REQ-268,This feature allows user to choose one of the language translations that are available in KeePass,keepass,,
+REQ-269,"The user can select between a number of translations that are available at KeePass website.
+There are available translations in Arabic, Brazilian, Bulgarian, Catalan, Chinese
+(Simplified and Traditional), Czech, Danish, Dutch, English, Estonian, Finnish, French,
+Galician, German, Greek, Hebrew, Hungarian, Italian, Japanese, Korean, Lithuanian,
+Macedonian, Malay, Norwegian, Polish, Portuguese, Romanian, Russian, Serbian, Slovak,
+Spanish, Swedish, Turkish and Ukrainian. All the user has to do is to select change
+language from the view menu and then the language he wants. If he already has download languages packets he can choose one of them. If he wants another language pack he can select get more language. Doing this he will be transferred at KeePass website and choose the language he wants for downloading.",keepass,,
+REQ-271,"1. User opens KeePass and selects to change language from the view menu
+2. The user selects a language to load from the list that appears
+3. A message appears that informs user that the installation has been done and in order for the changes to take place KeePass must be restarted
+4. User selects yes (restart now)
+5. KeePass asks to save any changes that may have been made in the database and restarts
+6. User unlocks the database using the Master Password
+7. The database appears translated in the new language",keepass,,
+REQ-274,User selects get more languages,keepass,,
+REQ-275,The browser opens in KeePass website were translations are located,keepass,,
+REQ-276,User selects a language he wants,keepass,,
+REQ-277,The language file downloads and can be found at the list with available languages in the language menu,keepass,,
+REQ-279,User selects no (restart later),keepass,,
+REQ-280,No changes are appeared in the database until the next time KeePass restarts,keepass,,
+REQ-282,No changes are made in the database,keepass,,
+REQ-284,"REQ-18: An internet connection and a browser are required in order to download new language translations
+For the following features, use cases are not included",keepass,,
+REQ-285,This feature allows user to define a sequence of keypresses which KeePass will automatically perform.,keepass,,
+REQ-286,The user defines the sequences which can be sent to any other open window like browsers or login accounts. By default the sent keystroke sequence is {USERNAME}{TAB}{PASSWORD}{ENTER}. There is the ability for the user to define his own auto-type sequence in the notes field of each entry. The sequence must be prefixed with “Auto-Type” and length of one line. If a sequence is more than a line it cannot be used and in case of two sequences in one note’s field only the first one is used. There are 3 methods to invoke auto-type.,keepass,,
+REQ-287,The first method is to use the context menu command and perform auto-type while the entry is selected.,keepass,,
+REQ-288,The second method is to select an entry and press Ctrl+V,keepass,,
+REQ-289,The third method is to use the system-wide auto-type hot key so that KeePass can search all entries in the database for matching sequences.,keepass,,
+REQ-291,The prefix “Auto-Type:” is required in front of each sequence,keepass,,
+REQ-292,Sequence’s length must not be more than a line (59 characters),keepass,,
+REQ-293,"If two auto-types are referred in one note field, only the first is used",keepass,,
+REQ-294,This feature allows user to pass a file patch in the command line so that KeePass will open it immediately after start up.,keepass,,
+REQ-295,"The database file location is passed as argument in the command line. More about this
+feature and examples for using it can be found at help contents in KeePass",keepass,,
+REQ-297,Only one database file is allowed in command line options,keepass,,
+REQ-298,"In case a space is found in the path, it must be enclosed into quotes",keepass,,
+REQ-299,This feature is a composition of master password and key files and all its composites are required so that the database can be unlocked.,keepass,,
+REQ-300,"The database can be unlocked with a master password, a key file or both of them. But the same composition of them must be used always.
+A master key is a password the user creates. Once a master key is created for a database, it is always required. In case the user forgets it, the database can never be opened again by any way.
+A key file is a file that locks the database. The database opens when this file is present. If the file is lost and there are no copies of it, all data are gone forever and database never unlocks again.",keepass,,
+REQ-302,"If a master password is required to unlock the database, the database doesn’t
+open unless the password is entered",keepass,,
+REQ-303,"If a key file is required to unlock the database, the database doesn’t open unless the key file is present",keepass,,
+REQ-304,"If there is a composite key, both master password and key file are required",keepass,,
+REQ-305,"In case of lost master password or key file, the database never unlocks again. There is no recovery",keepass,,
+REQ-306,There is no backdoor or key that unlocks all databases,keepass,,
+REQ-307,This feature gives the ability to user to import/export files from/to database.,keepass,,
+REQ-308,"There is the ability to import data from CSV files, code wallet, password safe and password vault. There are available plug-ins which add more import capabilities and formats and those are: File format CSV and File format XML. There isn’t any standard password database format and every password manager uses its own file format. Despite that, almost all support exporting to CSV or XML files.",keepass,,
+REQ-310,REQ-29: File formats are not specialized password database formats,keepass,,
+REQ-311,REQ-30: File formats only specify a low-level layout of stored data,keepass,,
+REQ-312,This feature allows switching back from an application to KeePass.,keepass,,
+REQ-313,"The global hot key takes the user back from one window to KeePass. In case of multiple
+databases running of KeePass the global hot key restores the window which was opened first of all. The global hot key is Ctrl+Alt+K",keepass,,
+REQ-315,Global hot key cannot be changed,keepass,,
+REQ-316,This feature generates random passwords.,keepass,,
+REQ-317,"The password generator creates random passwords every time an entry is created. This
+password may contain letters (big and small) and numbers. The user can keep it or he can put his own in the field. The generation can be based on character sets, patterns or can be created according by rules. This feature can be disabled if user wants it by selecting 0 as password length in the password generator dialog. More about characters sets and patterns can be found at KeePass Help Files including directions and examples.",keepass,,
+REQ-319,According to restriction rules that are applied every time.,keepass,,
+REQ-320,This feature allows creation of Transaction Authentication Numbers.,keepass,,
+REQ-321,"TANs can be passwords that provide security because they can never be used for more than once time. They can be added to user’s database by using TAN wizard and can contain all letters and numbers. When TAN are created, they appear as typical entries which in the field title contain “TAN” so that KeePass will know it’s a TAN. In TAN entries, user cannot change the title, user name or URL but notes can be added. When a TAN is used, its expiration time is set to that current time and the entry expires automatically.",keepass,,
+REQ-323,"Title, username or URL cannot be changed in a TAN entry.",keepass,,
+REQ-324,"When a TAN is used, it expires automatically and can never be used again.",keepass,,
+REQ-325,External Interface Requirements,keepass,,
+REQ-326,"User interface includes various forms and windows. The main database window consists of the main menu bar with file, edit, view, tools and help. Under main menu there is a toolbar with shortcuts to most used functions of KeePass. Those are: new, open, save, add entry, edit/view entry, delete entry, copy username to clipboard, copy password to clipboard, find in database and lock workspace. On the main database window are appeared entries from a selected group. Groups and subgroups can be found at a side bar.
+When a function is performed like adding, editing or deleting, the active window is the one performing the action. At this time the main database window is inactive and cannot be accessed unless the current active window is closed.
+KeePass as referred previously uses NET/Mono and Win32 (MS Windows) interfaces.",keepass,,
+REQ-327,Communications Interfaces,keepass,,
+REQ-328,Internet connection and a browser are required in order for several functions to be executed such as downloading plug-ins,keepass,,
+REQ-329,Other Nonfunctional Requirements,keepass,,
+REQ-330,Performance Requirements,keepass,,
+REQ-331,"When a password is copied, it remains on memory for only 10 seconds. If in the meanwhile it is not pasted anywhere, it must be copied again. That happens so that if user copies a password and not paste it anywhere, the password cannot be found by anyone later.",keepass,,
+REQ-332,"When a USB which contains the database is removed from a computer while changes haven’t been completely saved, the database is damaged and cannot be opened. In this case the repair functionality can help by repairing KeePass database file from tools menu.
+In case the user forgets or loses the Master Password, the repair functionality won’t help.
+In case the header of the database, which is the first few bytes, is corrupted, again the repair functionality won’t help.
+To avoid this kind of situations, backups can be done regularly.",keepass,,
+REQ-333,Software Quality Attributes,keepass,,
+REQ-334,KeePass is a small and light project so it does not need to be installed. All it takes is unpacking from the Zip package. It can be transferred also in a USB stick with no additional  configuration needed.,keepass,,
+REQ-335,"KeePass is a project that once uninstalled from a computer, leaves no trace behind. So there is no way passwords and other data in the database to be found later.",keepass,,
+REQ-336,KeePass is developed under GNU General Public License version 2 or later (copy from http://www.gnu.org/licenses/gpl.html) and can be distributed under those terms.,keepass,,
+REQ-337,KeePass can be found and downloaded from www.sourceforge.com and the project’s official website at http://keepass.info/ for free.,keepass,,
+REQ-338,"Software Requirements Specification 
+For Voucher Management System",microcare,,
+REQ-339,General overview of the VMUS (Voucher Maintenance Unit System),microcare,,
+REQ-340,"System Development: 
+The system will be developed on Oracle 9i platform Front end will be VB 
+(visual basic) Reports will be crystal reports 9",microcare,,
+REQ-341,"System design: 
+The system will be user friendly with maximum master table structure with 
+all transaction screens to have drop down selection menus to minimize data entry errors. 
+The main data entry screen on claims entry to have drop drown menu from patient’s profile 
+selection to medicine cost to have drop down. Minimize the use of key board for any number 
+entry to have a faster transaction data entry. The system will be easily trainable for the user 
+with minimum computer skill with simple user step by step manual.",microcare,,
+REQ-342,"Storage efficiency: 
+The structural design of the database will have sequential links with surrogate 
+keys. The database storage will be highly efficient to manage and avoid empty unused spaced 
+blocked, properly defragmenter on a periodic basis. This efficiency will have a maximum 
+provision to expand this program beyond the pilot period, 
+if the program requirements remain same.",microcare,,
+REQ-343,"Security: 
+High intrusion controls will be in place in the system and the database. 
+Access level controls, various organizational level user setting 
+by including granular model setting.",microcare,,
+REQ-344,External Hardware interface:,microcare,,
+REQ-345,"Bar-code – 
+ the system will interface with the bar-code reader to interface all transaction 
+details. E.g. voucher number verifications, claim form entry and 
+selection of voucher usage by the clients.",microcare,,
+REQ-346,"Bio-metrics – the system will interface with the thumb-print reader for verifying claims form 
+used by the clients.",microcare,,
+REQ-347,Functional Flow Diagram:,microcare,,
+REQ-348,"The purpose of this document is to explain the flow and the requirement 
+of Voucher Management System (VMU) required by Marie Stopes International Uganda
+(MSIU) during the various meetings held between MSIU and Microcare from 28th of Nov 
+2005 to 30th of Nov 2005. This document is purely based on the Functional Flow Diagram 
+designed by Microcare. The document will explain every small 
+entity of the system including various code generations, Bar-coding and Graphical User 
+Interface etc. This document will help the system development team to understand the 
+overall and detailed functions of every small entity in VMU and to design the system that 
+will meet every requirement of the VMU program.  This document will help the testing team 
+to prepare the Test Cases and will help them to test every module in the system and overall 
+testing of the system, so that the testing team will have confidence on the quality of this 
+system.",microcare,,
+REQ-349,about MSIU and OBA Program,microcare,,
+REQ-350,"Past experiences with development aid showed, that financing inputs, 
+e.g. facilities and equipment, does not result in the necessary improvement of health 
+outcomes. Thus as a change of paradigm, the OBA concept finances agreed outputs 
+with predefined quality rather than pre-defined inputs by selling vouchers for STD 
+services at subsidised prices to patients. These vouchers will be refunded to service 
+providers in the private sector (medical doctors, qualified nurses and midwives), 
+government hospitals, NGOs, and faith-based organisations.  
+The major advantages of the OBA approach are, that it allows",microcare,,
+REQ-351,"To target resources to address selected health problems,",microcare,,
+REQ-352,To target the provision of services to specific parts of the population and,microcare,,
+REQ-353,To stimulate private market initiative and competition.,microcare,,
+REQ-354,"The approach was successfully applied in the sixties/seventies in South 
+Korea and Taiwan. In recent years also a programme was run in Nicaragua but the OBA 
+has not been 
+implemented in larger scale programs.",microcare,,
+REQ-355,"Quality health care services for STD treatment,",microcare,,
+REQ-356,"For the sexually active population of the Mbarara district,",microcare,,
+REQ-357,"Through a voucher system,",microcare,,
+REQ-358,"By qualified, approved providers,",microcare,,
+REQ-359,For a pilot phase of 1 year.,microcare,,
+REQ-360,"The principles of the voucher, the contents of the health care services, 
+their required quality, the standards to be met by the providers and their infrastructure, 
+as well as the measures for monitoring the 
+quality have been defined in the PDS.",microcare,,
+REQ-361,The main structures and processes in the STD voucher programme are:,microcare,,
+REQ-362,"The programme is prepared, implemented and managed by the Voucher 
+Management Unit (VMU).",microcare,,
+REQ-363,"The VMU establishes a network of approved providers (during the pilot phase private,
+ NGO, FBO providers) 
+throughout Mbarara District.",microcare,,
+REQ-364,"The VMU runs a marketing and behavioural change campaign (BCC) to market and inform about the
+ voucher services and how to use them.",microcare,,
+REQ-365,"The VMU establishes and runs a distribution system with the purpose
+ to distribute the STD vouchers to the sexually active population for which the 
+above-mentioned providers are in reach.",microcare,,
+REQ-366,Distribution follows certain rules:,microcare,,
+REQ-367,"The vouchers are packed in two with one voucher for the purchaser of the voucher, 
+in the following addressed as “client” 
+and one for the partner of the client.",microcare,,
+REQ-368,"The voucher may only be bought for personal treatment or for the treatment 
+of the partner. Only one voucher is sold at time. The option of selling more than one 
+voucher 
+to a person at a time introduces too many sources for fraud.",microcare,,
+REQ-369,"Distributors keep a distribution list documenting distributor, voucher number, 
+date, place of sale, and 
+name and place of living of the customer.",microcare,,
+REQ-370,"The client may honour the voucher at any approved provider of his choice.  
+STD treatment according to the National Treatment Algorithms for STD in Uganda (NTA), 
+adapted for this voucher scheme (TA-OBA, treatment algorithms for STD treatment in the 
+OBA scheme), 
+is given to clients for free for the syndromes of",microcare,,
+REQ-371,Abnormal vaginal discharge,microcare,,
+REQ-372,Ophthalmia neonatorum,microcare,,
+REQ-373,Acute scrotal swelling,microcare,,
+REQ-374,Pelvic inflammatory disease,microcare,,
+REQ-375,In line with the NTA the voucher includes,microcare,,
+REQ-376,First consultation with basic lab testing and treatment,microcare,,
+REQ-377,First follow-up visit for all clients. If symptoms persist drug regimen will be switched,microcare,,
+REQ-378,If necessary second follow-up visit. If symptoms persist referral to a hospital.,microcare,,
+REQ-379,"Provider documents each voucher case in a standardised patient 
+treatment documentation form.",microcare,,
+REQ-380,"At the end of each month they hand in – respectively the claims processing 
+agency (CPA) collects –",microcare,,
+REQ-381,"The voucher for each patient  
+Copyright",microcare,,
+REQ-382,"The standardised patient treatment documentation form for each 
+patient and",microcare,,
+REQ-383,"A summary claims form containing a summary of all treated voucher cases to 
+the VMU for reimbursement.",microcare,,
+REQ-384,"The data from the forms is entered into a computer database. Data checks and
+ plausibilisations are done.",microcare,,
+REQ-385,Clean claims will be reimbursed via bank transfer.,microcare,,
+REQ-386,Conspicuous claims will be investigated and cleared by the VMU.,microcare,,
+REQ-387,"The VMU operates a monitoring system including follow-up with patients 
+to monitor proper operation of the voucher scheme.",microcare,,
+REQ-388,About Voucher Management system,microcare,,
+REQ-389,"The voucher management system VMS is designed to atomize 
+the process of Voucher Management Unit (VMU) to minimize the manual process 
+to maximize the quality of the project to understand the 
+progress and timely out come of the project to take necessary steps by the MSIU 
+Admin team to plan for the future and to increase the quality of the STD voucher 
+service. The system will also control the existence of fraud in claims and will help
+ the service provider to reach their payments in time without delay. 
+The other features and details of system will be explained in below sections in the 
+document.   The voucher management system is subdivided into following modules to 
+make the system easy for understanding, developing, testing and to implement.",microcare,,
+REQ-390,Voucher Creation / Preparation,microcare,,
+REQ-391,Claim Entry / Processing,microcare,,
+REQ-392,Reports (Standard and Customized),microcare,,
+REQ-393,Security and User Privileges,microcare,,
+REQ-394,"Each of the above modules are again subdivided into subsystems, those details are explained in 
+below sections in the document",microcare,,
+REQ-395,The preparation of SRS is purely based on the following documents,microcare,,
+REQ-396,"Final report on Programme Design Study, Dated 10-Sepetember-2005 Prepared by MSIU",microcare,,
+REQ-397,Functional Flow of VMUS Prepared by Microcare on 30th November 2005.,microcare,,
+REQ-398,"This section of the document is going to explain the functionalities of 
+the system, its subsystems and how it’s integrated and working together. 
+During the system study, it was understood that the first pilot period, twenty 
+thousand vouchers will be sold, but the VMU-system has the provision to upgrade to meet 
+the additional market and projects needs.",microcare,,
+REQ-399,Outline of entire system,microcare,,
+REQ-400,The VMU will create the vouchers and sell it to clients through distributors,microcare,,
+REQ-401,The distributor will submit the sales details back to the VMU.,microcare,,
+REQ-402,"Each voucher should have two portions with three tear off voucher slips each 
+for Client and Partner.",microcare,,
+REQ-403,The client and/or the partner will choose the service provider and will get treatment,microcare,,
+REQ-404,"First visit is called as Consultation and if the patient is not cured then they can go 
+for first follow 
+up and second follow up,",microcare,,
+REQ-405,"If the patient is not cured then the doctor will refer the patient to some other 
+Hospitals the hospital may be 
+another VSP or any other.",microcare,,
+REQ-406,"Each visit details (including Diagnosis, Lab Test and Drugs) of the patient is 
+called a claim,",microcare,,
+REQ-407,"The VSP will submit the claim to VMIU field office to enter those into the database,",microcare,,
+REQ-408,"The filed office will validate the claim form manually and through system,",microcare,,
+REQ-409,"If any of mandatory information is missed or any false information is existing 
+then the field office will reject the claim back to VSP and 
+the system will keep those claim in a quarantine area",microcare,,
+REQ-410,"The quarantined forms will be sent back to the VSP for verification, if the VSP 
+returns the claim with satisfactory details, the claims will be entered on to the system, 
+in the following month’s batch.",microcare,,
+REQ-411,"Based on the payment terms agreed by VSP, the field office will generate 
+BiMonth or Monthly financial and medical report and send it to MSIU Admin team to arrange 
+the payments for the VSP.",microcare,,
+REQ-412,"To understand the satisfaction of client the MSIU Admin team will get client feedback 
+from some of the clients and send those documents 
+to field office to enter those into database.",microcare,,
+REQ-413,"As mentioned above the entire system is sub-divided into six modules 
+and again the each module 
+is subdivided into different subsystems.",microcare,,
+REQ-414,2.1.2 Voucher Management System Modules,microcare,,
+REQ-416,"Voucher creation – the voucher numbers are system generated 
+and created with unique identification numbers with security protocols in-built. 
+The created unique numbers are then printed out in the form of bar-codes, which will 
+complement (or stuck on the voucher) the voucher. Then at every level on the voucher 
+cycle this number is captured, on distribution, retail sales, point of treatment, enclosed 
+along with claim forms, at the claims processing and finally for the payment. 
+Such tracking records will be utilized for reports as well. Each voucher should have the 
+following properties, which will have sub-elements to get the batch numbers, voucher 
+numbers, and the project codes. Project code – Group batch code – Batch number – 
+Voucher number – Security code.",microcare,,
+REQ-417,Project Code (2 Digit) Example: P001,microcare,,
+REQ-418,Group Batch (3 Digit) each group batch has a batch of 100 Batches Example: GP0001,microcare,,
+REQ-419,Batch number (2 Digit) approximately each batch will have 10 vouchers,microcare,,
+REQ-420,Voucher number (10 digit),microcare,,
+REQ-421,All codes will be printed out in the form of Bar,microcare,,
+REQ-422,"Additionally the provision for validity date check for the period of vouchers to be
+used in the program is provided. This validity date can be amended or altered at the 
+system level ONLY by the authorized user",microcare,,
+REQ-423,Voucher will also have MRP (maximum retail price),microcare,,
+REQ-424,"Voucher should have three tear off portioned slips with a sub-section tear-off for 
+the partner.",microcare,,
+REQ-425,"If the tear off voucher slips would be sticker then it will not be lost on attaching to 
+the claim 
+forms by the VSP.",microcare,,
+REQ-426,"Each voucher slip should contain the bar code of the Voucher with two 
+identifications one for the client and 
+the other for the partner.",microcare,,
+REQ-427,The first tear for the first consultation,microcare,,
+REQ-428,Second one for the first follow-up,microcare,,
+REQ-429,And the third tear off for the final (second follow-up).,microcare,,
+REQ-430,"This system has high security feature as far as the user access to the 
+system, including all the modules, 
+sub-modules and even at the screen level.",microcare,,
+REQ-431,The voucher will be created ONLY by the authorized person.,microcare,,
+REQ-432,"The will be a provision to create a minimum quantity of vouchers at one time 
+(such minimum numbers will 
+be decided by the management team).",microcare,,
+REQ-433,"Once created vouchers will not be edited or deleted but there will be a provision 
+to with-hold any voucher number if the admin 
+team decides to do for any reason.",microcare,,
+REQ-434,There will be a provision to amend the validity date of the voucher.,microcare,,
+REQ-435,"The marketing and sales is the next step and the next module in the system. 
+This module will take care of following sub modules.",microcare,,
+REQ-436,Distributor Master Information,microcare,,
+REQ-437,"The system will capture the master details of every distributor so that 
+the users can get the details of any distributor and sales details at any time. Each 
+distributor will have unique code and detailed descriptions such as name, address, 
+locations and type of business etc. such valid information will help us track 
+information related to sales and distributions. 
+Following fields will be captured at this master.",microcare,,
+REQ-438,Distributor Code (3 Digit) Example: DS0001*,microcare,,
+REQ-439,Name of the distributor*,microcare,,
+REQ-440,Type of business (e.g. hospital/pharmacy/NGO)*,microcare,,
+REQ-441,"Address (Street/Road, Sub District, County, Sub County and Village or Town)*",microcare,,
+REQ-442,Status (active/deactivate),microcare,,
+REQ-443,All fields with * are mandatory!,microcare,,
+REQ-444,"The address field will capture the geographical location of the distributor, 
+such as District, Sub-District, County, Sub-County or Village / Town, road or street. All 
+the level of details will have a master table in order to update as per the program 
+requirements.  
+The system will check the duplicated ID for the distributors. The system can allow 
+the duplicate names of the Distributor. On capture of any duplicate name the system 
+will give a warning message to have the duplicate name or to change the name. 
+For better reporting purposes it is better to have a differentiating indicator on the name.  
+System will have a provision to print the distributor master details.  
+The distributor screen will have a provision to view the Sales History of a 
+particular distributor with following summary details.  
+Distributor Name as Report Header and following as the report footer",microcare,,
+REQ-445,Balance Qty (any other details required by the MSIU office),microcare,,
+REQ-446,"There will be a provision to select a particular distributor to view the details 
+(e.g. sales) by double clicking on the grid.  
+Print option of above report is based on User Login Permission only.  
+There will be an option for doing the following at every screen.",microcare,,
+REQ-447,"New
+(adding new records)",microcare,,
+REQ-448,"Edit
+(updating available records)",microcare,,
+REQ-449,"Delete
+(deleting will be allowed only if no child records are created)",microcare,,
+REQ-450,"Active/Deactivate
+ (if the distributor has to be deactivated or terminated)",microcare,,
+REQ-451,"There will also be a provision for the other users to view the details of a
+ distributor with purchase and sales details.",microcare,,
+REQ-452,"The system will capture the details of MSIU Salesman; this would help 
+the MSIU management team to understand the performance of each Team or salesman. 
+During every distribution transaction the user should select the name of the sales man 
+listed from Team Master. 
+The Salesman master should capture following information’s.",microcare,,
+REQ-453,Name of the Salesman*,microcare,,
+REQ-454,Communication Address*,microcare,,
+REQ-455,Sales-team (which will have a separate master)*.,microcare,,
+REQ-456,"The sales team master is for the future development of this program, 
+if this program is extended to a country-wide network, 
+this master will help understand and tack sales information.",microcare,,
+REQ-457,"The system will check the duplicated ID for the salesman and team. 
+The system can allow the duplicate names of the salesman. On capture of any duplicate 
+name the system will give a warning message to have the duplicate name or to change 
+the name. For better reporting purposes 
+it is better to have a differentiating indicator on the name",microcare,,
+REQ-458,Distribution Transactions (Sales from MSIU to Distributor),microcare,,
+REQ-459,"The system will capture the details of voucher sales between MISU 
+sales team and Distributors. During the distribution the system will capture the 
+following details, to make Distribution process easily. With the below details the 
+user can get the details of Distributor-wise and Salesman-wise 
+and Batch No wise sales details as reports.",microcare,,
+REQ-461,Name of the Sales Man*,microcare,,
+REQ-462,Date of distribution*,microcare,,
+REQ-463,"According to the number of vouchers required by the distributor, 
+the system should allocate the relevant vouchers with their 
+numbers and batch numbers based on the stock.",microcare,,
+REQ-464,Invoice amount = No of vouchers x Wholesale price,microcare,,
+REQ-465,Mode of payment is Cash,microcare,,
+REQ-466,"The mandatory information required during a distribution transaction is 
+mentioned below.",microcare,,
+REQ-467,Name of the distributor (Selecting from Distributor Master),microcare,,
+REQ-468,Name of the Sales Man (Selecting from Sales man master),microcare,,
+REQ-469,Date of Distribution (Date selection option),microcare,,
+REQ-470,Required Qty (No of vouchers sold (Allow only Numeric Entry)),microcare,,
+REQ-471,"Invoice Amount = Whole Sale Rate (should taken from settings master based on sale date)  
+* Qty Sold. (Automatic Calculation)",microcare,,
+REQ-472,"The system will generate an auto-generated number as Distribution 
+Invoice No.  
+Suppose the distributor or salesman name is not available in the system, then the 
+system has a provision to navigate quickly to its master screen and enter the new 
+Distributor and Salesman details, 
+without closing the present screen.  
+While entering the No of vouchers required, the system should automatically 
+pick the Batch No’s with voucher No’s from the available voucher stock and list the 
+details of each voucher with below information’s as a grid format.",microcare,,
+REQ-473,"The date of distribution will be current (system) date. But the date of sale 
+can be the past dates. 
+There will be a future date sale validation check available.",microcare,,
+REQ-474,Claim Entry/Processing,microcare,,
+REQ-475,"The program will take maximum care in this form and table, as it 
+become a vital transaction to be captured. In this module you will see that every 
+capture of data will be 
+validated and checked on saving into the database. For e.g. the capture of voucher 
+number, clinical information, diagnosis details, drug and investigation details and 
+the costs are going to provide the program a vital report information. The system 
+development team will focus its attention in making this module/table function 
+efficiently.  For the easy understanding and designing of the system, this module is 
+subdivided into following sub-modules. The division of sub-module is purely based 
+on the sub-level categories of the data information.",microcare,,
+REQ-476,The service (treatment) will happen at the VSP (Service Provider) clinic or hospital,microcare,,
+REQ-477,The attending doctor will fill the claims form.,microcare,,
+REQ-478,"On completion of the service the patient will provide the voucher according 
+to the visit type and patient type (client or partner), 
+the voucher will be stuck to the claim form.",microcare,,
+REQ-479,The thumb print will also be placed on completion of the service,microcare,,
+REQ-480,The VSP will send the collected claim forms monthly and send it to MSIU field office.,microcare,,
+REQ-481,MSIU office will then process the claim.,microcare,,
+REQ-482,Voucher Service Provider (VSP) Master Information,microcare,,
+REQ-483,The VSP master will have the following information:,microcare,,
+REQ-484,"Physical Address (Street / Road, District, Sub-District, County, SubCounty, Village/Town)",microcare,,
+REQ-485,"Communication Address (Street / Road, District, Sub-District, County, Sub-County, Village/Town)",microcare,,
+REQ-486,Status (Active / In-Active),microcare,,
+REQ-487,"Other than Contact No and E-Mail Id all other information are mandatory 
+during the creation of a new Service Provider.  
+The VSP code is a digit code with suffix SP, would be automatically generated by the 
+system.  
+The system should generate message with two option “Continue – Yes/No” while the 
+user trying to create a new VSP with an existing name, If the user press Yes the 
+system will allow the user to enter the same, if not the system wont allow the new 
+entry to save.  
+The system will list District, Sub-District, County, Sub-County, Village / Town 
+from the master during VSP creation, if any of them are not available in the system, 
+then the system will have the provision to navigate quickly to its master screen and 
+do enter master details and back to VSP screen.   
+The values of Health Sub – District, Locality, Level Of Facility, Type of facility, 
+Registration Body would be list from their own master and should select the details 
+based on the VSP. If any of the information is not available in existing master of 
+above, then the system will have the provision to navigate quickly to its form to 
+enter the master details and back to VSP Screen. The system will populate Active VSP 
+only on other screen during data entry process, 
+but the system will also populate all VSP for report purpose.  
+Activation and In-activation of VSP is purely based on the MSIU Management decision. 
+But if the system is found more than two fraud entries during the claim process of 
+particular VSP, then the system would automatically change the status of that particular 
+VSP as In-activate. Activation of that particular VSP is again purely based on MSIU 
+Management decision.  
+The VSP Master Information screen should have a provision to enter the payment terms 
+agreed between MSIU and VSP. The system will capture following master details to fill 
+the payment terms.",microcare,,
+REQ-488,Payment Mode (Cash / Bank),microcare,,
+REQ-489,Payment Type (Selection from list of options Bi-Monthly/Monthly),microcare,,
+REQ-490,The below details may periodically change depends on the MSIU management decision.,microcare,,
+REQ-491,Valid From (Date selection option),microcare,,
+REQ-492,Valid up to (Date selection option),microcare,,
+REQ-493,"First Visit Consultation Fee (Only Numeric Entry, default 0)",microcare,,
+REQ-494,"First follow up visit Consultation Fee (Only Numeric Entry, default 0)",microcare,,
+REQ-495,"First second up visit Consultation Fee (Only Numeric Entry, default 0)",microcare,,
+REQ-496,"First visit Lab Fee (Only Numeric Entry, default 0)",microcare,,
+REQ-497,"The above mentioned payment terms will help the MSIU to make the 
+payment detail easy and also help the VSP to get their payment in timeThe system will 
+control the payment process and terms.  The allowed users only can able to Add, Modify 
+or delete the VSP master information including payment terms.  
+The VSP screen will have the provision to view the Claim Status of selected VSP. The 
+system will facilitate to show the user following details if necessary.  
+VSP Name (as the report header and below as the details part of report)",microcare,,
+REQ-498,Cumulative Total Amount will show in Report footer for the previous payment done.,microcare,,
+REQ-499,VSP Staff Master Information,microcare,,
+REQ-500,"The system will have the facility to capture the details of VSP staff 
+details and the necessary master information 
+while entering the claim into the system.",microcare,,
+REQ-501,"The system will generate message while creating a new staff with 
+existing name, but the system will allow 
+the user to save that new staff if its required. 
+All above information’s other than Qualification are mandatory during 
+the creation of new staff under any VSP.  
+The system will automatically create Staff Code with Suffix as VSP Code 
++ SC + 3 digit. For example HP0001SC0001  
+Staff type (should be select from list of staff type listing from Staff Type Master)  
+If any of the staff type is not available in the system, then the system should 
+have the provision to navigate quickly to staff type master 
+to enter the new staff type and then back to Staff Master screen.",microcare,,
+REQ-502,Claim (Treatment Form) Submission,microcare,,
+REQ-503,"Depends on the payment terms (Bi-monthly / Monthly) mentioned in 
+the VSP master the VSP should submit the Claim (Treatment form) to the MISU Field 
+office. While submitting the Claim (Treatment Form) to MSIU, the system will have 
+the provision to capture the following details. These information is vital and 
+shall be used for compared with the processed claims.",microcare,,
+REQ-504,No of Mentioned Forms,microcare,,
+REQ-505,No of Available Forms,microcare,,
+REQ-506,The above as the master part and below details are the Transaction part,microcare,,
+REQ-507,During submission entry all above information’s are mandatory,microcare,,
+REQ-508,Date of submission should be current date,microcare,,
+REQ-509,The system lists the VSP Name from VSP Master.,microcare,,
+REQ-510,Mentioned Forms and Available Forms only accept numeric values.,microcare,,
+REQ-511,Available forms may be less than or greater than or equal to Mentioned Forms.,microcare,,
+REQ-512,In the transaction part no of forms should match with No of Available Forms,microcare,,
+REQ-513,"The system should print a receipt document based on the information 
+entered during claim submission. 
+The document should have the following information.",microcare,,
+REQ-514,Date of Submission (with date and time),microcare,,
+REQ-515,No of claims mentioned,microcare,,
+REQ-516,No of claims Available,microcare,,
+REQ-517,"The above details would print in the report header and below details 
+will print 
+in the detailed part of the report",microcare,,
+REQ-518,"The claim entry is purely based on the Treatment (claims) Form submitted 
+by the VSP. Before the claim entry the user should check the form manually to understand 
+whether any mandatory information is missed in the Claim or not. If yes, then the user 
+should mark that Claim (Treatment Form) status as Rejected and send back to VSP.  
+During the claim entry the system should capture the following information.",microcare,,
+REQ-519,"Address (Street / Road, District, Sub-District, County, Sub-County, Village / Town)",microcare,,
+REQ-520,"The above details are the master informationd and below listed information
+are the transaction details of a Claim.",microcare,,
+REQ-521,Drugs Name – Frequency –No of days - Qty,microcare,,
+REQ-524,"The system will have the provision to enter any number of Syndrome, 
+Clinical Examinations, Diagnosis, Lab Test, Drugs and Other Measures in 
+any treatment level based on MSIU treatment master.",microcare,,
+REQ-525,"All above master level information are mandatory other than 
+Contact No during the entry of claim into the system. The following part will 
+explain how the systems 
+will validate every information during claim entry.",microcare,,
+REQ-526,"Treatment Form No (List Form No from Claim receipt details which all are not 
+yet entered in claim)",microcare,,
+REQ-527,"Claim No (The system will automatically generate the Claim number with Hospital 
+Code as Suffix + 8 digit)",microcare,,
+REQ-528,Submitted Date (This should populate automatically while choosing the Form No),microcare,,
+REQ-529,VSP Name (This should populate automatically while choosing the Form No),microcare,,
+REQ-530,"Voucher No (This should be captured from Bar Code reader based on the Voucher Slip 
+Stick on the Claim Form)",microcare,,
+REQ-531,"Visit Count (This should be captured from Bar Code reader based on the 
+Voucher Slip Stick on the Claim Form)",microcare,,
+REQ-532,"Patient Type (This should be captured from Bar Code reader based on the Voucher Slip 
+Stick on the Claim Form)",microcare,,
+REQ-533,Gender (Select from the list of options Male / Female),microcare,,
+REQ-534,"Address (Street / Road, District, Sub-District, County, Sub-County, Village / 
+Town) other than Street / Road all other details would list from the its master records, 
+if any details are not exist in Master record, then the system should have the provision 
+to navigate quickly to its master screen to enter the new details 
+and back to the Claim Entry Screen",microcare,,
+REQ-535,"Contact No
+ Not Mandatory",microcare,,
+REQ-536,Doctor Name (select from list of doctors populating from VSP Staff Master),microcare,,
+REQ-537,"Doctors Note – 
+Space for the doctor to enter the note about the patient if anything is 
+required",microcare,,
+REQ-538,"HIV Details if any –
+The format for HIV capturing details are attached with SRS.",microcare,,
+REQ-539,"Patient Status -
+(Select from list of status options populating from Patient Status Master) 
+suppose the status is Referral then the system will have the provision to capture 
+Referred To and Reason for Referral, the reason for Referral 
+should be populated from Referral master.",microcare,,
+REQ-540,"Claim Status –
+Status of the claim is depends information available in the 
+Claim, if any false data or any mandatory information is available in 
+Claim, then the claims status will change, if the value of status is not 
+“Accepted” then the claim will be stored in quarantine area and can able 
+to precede it further from its status. The system should have a provision 
+to capture the reason suppose if the claim status is “Rejection or Quarantine”",microcare,,
+REQ-541,"Claim Amount – 
+The calculation of claim amount is explained below.",microcare,,
+REQ-542,If it is a First visit Claim,microcare,,
+REQ-543,"Claim Amount will capture First Visit Consultation Fee 
+(from VSP Payment terms) + Lab test Amount (from VSP Payment terms) 
++ (Qty of drugs * Retails Price (from Drugs Master).",microcare,,
+REQ-544,If Claim is for first follow up,microcare,,
+REQ-545,"Claim Amount will capture First Follow up Fee (from VSP Payment terms) + 
+(Qty of drugs * Retails Price (from Drugs Master)",microcare,,
+REQ-546,If Claim is for second follow up,microcare,,
+REQ-547,"Claim Amount will capture Second Follow up Fee (from VSP Payment terms) + 
+(Qty of drugs * Retails Price (from Drugs Master)",microcare,,
+REQ-548,"The system captures the thump impression available in each claim 
+form, and needs to compare it with the same voucher numbers previous visits 
+if available. If the thump impression are mismatching for the same patient 
+(Client / Partner) on same voucher the system would automatically make a count on it.  
+ If the claim from same VSP having more than two times of Thump Impression 
+mismatching, then the system should automatically produce a warning message 
+and the same time the system should In-Activate the VSP. 
+The authorized user can alter / amend the Claim if required.",microcare,,
+REQ-549,Generic Master with following information,microcare,,
+REQ-550,Drugs Master (there will (can) be a standard drug price for all VSP provision),microcare,,
+REQ-551,Clinical Examination Master,microcare,,
+REQ-552,Diagnosis Description,microcare,,
+REQ-553,Patient Status Master,microcare,,
+REQ-554,Referral Reason Master,microcare,,
+REQ-555,Claim Quarantine / Rejection Reason Master,microcare,,
+REQ-556,MSIU Treatment Matrix,microcare,,
+REQ-557,First Visit Clinical Examinations,microcare,,
+REQ-558,First Visit Diagnosis,microcare,,
+REQ-559,First Visit other measures,microcare,,
+REQ-560,First follow up Diagnosis,microcare,,
+REQ-561,First follow up Drugs,microcare,,
+REQ-562,Second follow up Diagnosis,microcare,,
+REQ-563,Second follow up Drugs,microcare,,
+REQ-564,The VSP should follow MSI Patter for treatment,microcare,,
+REQ-565,"The user should enter the information exactly into the 
+system from the manual claim form",microcare,,
+REQ-566,"The VSP staff should get the thump impression from 
+the patient and should stick the voucher slip on the claim form",microcare,,
+REQ-567,System only accept claims only if the mandatory information is complete,microcare,,
+REQ-568,System should calculate Claim Amount only based on treatment matrix,microcare,,
+REQ-569,"Voucher Sales return is feature used when a distributor is planning to 
+return the vouchers back to the MSIU sales team. The system will 
+capture the following information during the sales return transaction.",microcare,,
+REQ-570,Sales Return Amount (No of voucher returned x whole sale rate),microcare,,
+REQ-571,Number of vouchers Returned,microcare,,
+REQ-572,"The above details are the master part and following are captured as 
+transaction part",microcare,,
+REQ-573,All above information are mandatory during the sales return,microcare,,
+REQ-574,"Distributor Name - 
+will list from Distributor Master",microcare,,
+REQ-575,"Sales Man Name - 
+ will list from Sales Man Master",microcare,,
+REQ-576,"Sales Return Date – 
+System date is default and it should be less than or equal to system date",microcare,,
+REQ-577,"While entering return vouchers details the system will check weather 
+the returned voucher was sold to this particular Distributor or not. 
+If not the system won’t accept those vouchers as return.",microcare,,
+REQ-578,"MSIU team collects the client feed back from the clients who 
+got treatment through the voucher system. 
+The Client Feed back form should capture the following details",microcare,,
+REQ-579,Details of syndromes treated,microcare,,
+REQ-580,Referral To Treatment,microcare,,
+REQ-581,Satisfaction of Treatment (Not at all / Moderate / Good / Completely),microcare,,
+REQ-582,"Satisfaction of counseling -
+ Enter by the user",microcare,,
+REQ-583,"Satisfaction of ensuring privacy – 
+ Enter by the user",microcare,,
+REQ-584,Based on the Voucher No the system will populate the following details,microcare,,
+REQ-585,Client Details (Address as per Claim Form will populate automatically),microcare,,
+REQ-586,"Details of syndromes treated (Automatically populate from 
+the system based on Voucher No)",microcare,,
+REQ-587,Lab Test Details (Automatically populate from the system based on Voucher No),microcare,,
+REQ-588,Drugs Details (Automatically populate from the system based on Voucher No),microcare,,
+REQ-589,"Success of Treatment  (Automatically populate from the system 
+based on Voucher No)",microcare,,
+REQ-590,"Referral To Treatment  (Automatically populate from the system based 
+on Voucher No)",microcare,,
+REQ-591,"Partner Treated (Treatment  (Automatically populate from the system 
+based on Voucher No)",microcare,,
+REQ-592,The user should enter correct Voucher No,microcare,,
+REQ-593,"The user will not alter any information about treatment, 
+which is populating from the system",microcare,,
+REQ-595,"As per the MSIU Project Document named “Programme Design 
+Study” the following reports are required",microcare,,
+REQ-596,Monthly after claim collection on clean claims to be paid without reservation,microcare,,
+REQ-597,"Monthly after claim collection on claims, where payment 
+shall be withheld until clarification",microcare,,
+REQ-598,Report on claims per provider,microcare,,
+REQ-599,"Report, summarising all providers",microcare,,
+REQ-600,Quarterly summary reports per provider and summarising all providers,microcare,,
+REQ-601,"Frequencies of syndromes treated, additional information on patient 
+population (sex, age)",microcare,,
+REQ-602,Frequencies of primary clients and notified partners,microcare,,
+REQ-603,"Number of correctly documented cases, cases with incorrect documentation, 
+cases treated according to algorithms, cases with 
+justified treatment alterations and treatment errors",microcare,,
+REQ-604,"Summary report comparing the different providers regarding syndromes treated, documentation 
+quality and treatment behaviour",microcare,,
+REQ-605,"Quarterly and half yearly reports giving the time trends of the abovementioned indicators for each 
+provider and all providers combined",microcare,,
+REQ-606,"The system has the provision to provide various analytical, medical, 
+financial and statistical 
+reports. Such reports can be designed later.",microcare,,
+REQ-608,"The security setting of the entire system is based on User Group. 
+The roles available in the system are allocated to user group. 
+The user group creation would capture the following Information",microcare,,
+REQ-609,"The above is the masters part information and below are 
+the transaction part information.",microcare,,
+REQ-610,"New –
+Allowed / Not Allowed",microcare,,
+REQ-611,"Edit –
+Allowed / Not Allowed",microcare,,
+REQ-612,"Delete – 
+Allowed / Not Allowed",microcare,,
+REQ-613,"View – 
+Allowed / Not Allowed",microcare,,
+REQ-614,"Print – 
+Allowed / Not Allowed",microcare,,
+REQ-615,Allow above information are mandatory while creating a new User Group.,microcare,,
+REQ-616,The system admin only can able to create User Groups,microcare,,
+REQ-617,"The system should have the provision to create any 
+number of individual user under any user group.",microcare,,
+REQ-618,Each Individual User should have the following information,microcare,,
+REQ-619,Group Name (Selecting from User Group),microcare,,
+REQ-620,All the above are mandatory entry,microcare,,
+REQ-621,"The system should save the user information only if the 
+Password and Verify password values are equal",microcare,,
+REQ-622,"The system should not allow the user to create a User 
+Group and Individual User with existing names",microcare,,
+REQ-623,"DRAFT
+SOFTWARE REQUIREMENTS SPECIFICATION (SRS)
+FOR THE
+DEFENSE INFORMATION INFRASTRUCTURE (DII)
+COMMON OPERATING ENVIRONMENT (COE)
+XML SERVICES (XS)",dii,,
+REQ-624,IDENTIFICATION OF FUNCTIONAL AREA,dii,,
+REQ-625,"This Software Requirements Specification (SRS) establishes the functional, 
+performance, and verification requirements for the XML Services (XS) functional area of 
+the Defense Information Infrastructure (DII) Common Operating Environment (COE). 
+The XS functional area includes Registration of terms (tags and structures), 
+Design of XML schemas, Generation and Consumption of XML documents.",dii,,
+REQ-626,FUNCTIONAL AREA OVERVIEW,dii,,
+REQ-627,"XML Services provide infrastructure services for mission and 
+support applications using XML technology. These services isolate vendor-unique 
+implementations of data access and provide applications a means of avoiding 
+dependencies on physical access models. These services also provide data 
+management functions for access to distributed (local and remote) 
+database management systems as one of the solutions for interoperablity.",dii,,
+REQ-628,"This document outlines the software capabilities required for the XS 
+components for the DII COE. Section 2 lists the documents that are applicable to 
+this specification. Section 3 provides a list of functional capabilities. Section 4 
+identifies the qualification requirements. Section 5 outlines the requirements and 
+verification traceability matrix. 
+Section 6 contains the applicable notes associated with the XS component.",dii,,
+REQ-629,"Defense Information Infrastructure (DII), Shared Data Environment 
+(SHADE), CAPSTONE DOCUMENT Version 1.0, 11 July 1996",dii,,
+REQ-630,"ACCS-A1-100-006 System Specification for ATCCS, 22 March 1995",dii,,
+REQ-631,"ATCCS-A1-302-001A Army Tactical Command and Control System Common ATCCS Support Software 
+(CASS) Systems/Segment Specification",dii,,
+REQ-632,"CDRL A142 AWIS Software Requirements Specification (ASRD), July 1992",dii,,
+REQ-633,"CDRL ML03 AWIS Systems Management Manual (SMM), 31 Oct. 1994",dii,,
+REQ-634,"AWIS Support Software Design Document, December 1994",dii,,
+REQ-635,"D18664A Standard Theater Army Command and Control System (STACCS) System 
+Design Document Version 1.1/As Built, 1 Oct. 93",dii,,
+REQ-636,"AAN-SDA001A Standard Theater Army Command and Control System (STACCS) System 
+Specification, Version 1.1/As Built, 1 Oct. 93",dii,,
+REQ-637,"Standard Theater Army Command and Control System (STACCS) System Software Programmers 
+Manual, Draft.",dii,,
+REQ-638,"Global Command and Control System (GCCS) Integration Standard, Version 1.0, October 1994.",dii,,
+REQ-639,"Global Command and Control System (GCCS) Common Operating Environment Baseline, DISA, 28 November1994.",dii,,
+REQ-640,"User Interface Specifications for Global Command and Control System (GCCS), Version 1.0, October 1994.",dii,,
+REQ-641,"Draft Architectural Design Document for the Global Command and Control System (GCCS) Common Operating Environment 
+(COE), Version 3, 24 July, 1994.",dii,,
+REQ-642,"MIL-STD-498 Military Standard - Software Development and Documentation,",dii,,
+REQ-643,"FIPS PUB 127-2 Database Language SQL - Federal Information Processing Standards 
+Publication 127-2, 2 June, 1993.",dii,,
+REQ-644,MIL-STD-6040 Military Standard –,dii,,
+REQ-645,ISO/IEC 9070 Formal Public Identifier,dii,,
+REQ-646,NON-GOVERNMENT DOCUMENTS,dii,,
+REQ-647,"Petrucci, Steve, ""Cross-Platform Power Tools, Application Developers 
+for the Macintosh, Windows, and Windows NT"", Random House Electronic Publishing, 
+1993.Donald Lewine,""POSIX Programmer's Guide"", O'Reilly & Associates, Inc. 1991.
+W3C Working Draft ""Namespaces in XML""",dii,,
+REQ-648,REQUIRED STATES AND MODES,dii,,
+REQ-649,"Environmental Mode: This is the real-time operations that must react to varying 
+degrees of readiness to full scale wartime operations such as crisis planning with
+ the use of heterogeneous data types and sources, transfer capabilities, data management
+ services.",dii,,
+REQ-650,"COE Compliance. XML Services shall be segmented. COE sponsors shall adhere 
+to compliance level requirements described in the I&RTS.",dii,,
+REQ-651,"In the fixed (static) mode of operation (base or data processing megacenter), the
+ data management services shall have the capability of being tuned by on-site personnel
+ to adjust for varying workloads and sizes of associated databases. These workloads and
+ databases are expected to change more frequently and to a greater extent than for 
+processing associated with deployed units",dii,,
+REQ-652,"In a changing (dynamic) environment, such as with deployed units, the workload
+ and database sizes may be more predetermined (given a more precise mission) and 
+require access to fewer data management administrative capabilities than needed in a 
+fixed environment. The XS shall have the ability to redefine or reset names of connect 
+descriptors to database server instances. Connect descriptors are fully qualified object 
+names and include address (protocol/host/port) and instance name.",dii,,
+REQ-653,"In a degraded communications environment, there is a need, for example, to 
+be able to reset session time-out values if the data management services are being
+ accessed by users affected by the communications degradation. At a minimum, the 
+session time-out values shall be user definable and be able to be reset prior to 
+initialization of a user session. The goal is to provide the option of dynamically changing
+session time values based on current communications performance identified by 
+capabilities of the network management or DBMS.",dii,,
+REQ-654,"End User Mode: Portion of XS services shall be used by various classes of
+ users: data consumers, data and database managers, network information infrastructure
+ resource managers. Some of these uses of the data management services will entail 
+unique requirements that shall be fulfilled within the capability of XS services.",dii,,
+REQ-655,"Maintenance Mode: This mode includes modification and/or addition of 
+application data segments, user permission, privileges, and restructuring storage
+and memory areas. In addition, maintenance also shall pertain to shutdown, open 
+not-mounted and online/off-line implementations, modifications, upgrade, or other 
+related actions. The data management services shall support managing various types
+ of data, database architectures and platforms that includes hardware and software at
+ the specified sites.",dii,,
+REQ-656,"Training Mode. In support of training activities, the data management services 
+shall provide for the same processing as would be encountered in a production
+ environment. However, access to the database may be via a training application 
+access to the DBMS rather than from the production mission application.",dii,,
+REQ-657,XML SERVICES CAPABILITY REQUIREMENTS,dii,,
+REQ-658,"The XS shall deliver inter-related components as shown
+ in figure 3.2-1",dii,,
+REQ-659,"Register Terms and Structures (e.g., tags, DTDs, DCDs)",dii,,
+REQ-660,"Producer services A producer is an agent that contributes metadata for inclusion into an
+ XML Registry for the purposes of ensuring maximum semantic understanding of a term 
+as it appears in an XML document. To contribute metadata to a registry, the producer 
+must be able to receive XML registry forms, submit metadata and the related information
+ resource artifacts, and notify.",dii,,
+REQ-661,"Produce and display submittal forms as part of the Information Resource
+ Submittal Package from the web containing the following Information Resource
+ artifacts: XML Tag Specification, XML Spec (i.e. DTD, DCD etc.), Sample of XML document
+ of the tag to be submitted. The Package is to be compressed and emailed or sent ftp to 
+an addressee.",dii,,
+REQ-662,"Download Information Resource Submittal Package from the web containing 
+forms, instructions, and tools for submission to XML Registry.",dii,,
+REQ-663,"Submit prescribed metadata related to information resource type, information 
+resource association, status code, data types specified and other related information 
+specified in Appendix A within a combination of forms. These forms are part of the 
+Information Resource Submittal Package containing the following Information Resource
+ artifacts: XML Tag Specification, XML Spec (i.e. DTD, DCD etc.), Sample of XML
+ document of the tag to be submitted. The Package is to be compressed and emailed 
+or sent ftp to an addressee.",dii,,
+REQ-664,Submit metadata by an on-line interactive process,dii,,
+REQ-665,Submit metadata by a off-line and interactive batch process,dii,,
+REQ-666,Parse submitted XML Registry specification forms,dii,,
+REQ-667,Populate XML Registry database,dii,,
+REQ-668,"Modify of specified terms & definitions of metadata and status of 
+Information Resources.",dii,,
+REQ-669,Associate Information Resources specified in Appendix A.,dii,,
+REQ-670,Assemble registered information resources to form new components.,dii,,
+REQ-671,Assemble new DTDs from current,dii,,
+REQ-672,"Produce DTD as an instantiation (others are database schema, message
+ definition) for modeling environment.",dii,,
+REQ-673,Notify change in Information Resources or authorized producer of tag.,dii,,
+REQ-674,Provide a capability to post planned changes to a registry,dii,,
+REQ-675,Approve and reject submissions,dii,,
+REQ-676,Forward request to different registry,dii,,
+REQ-677,"Consumer services. A consumer examines a registry to select a tag structure for reuse in one
+ or more applications that will exchange data according to a pre-defined agreement.",dii,,
+REQ-678,View the XML Tags with the following relationships:,dii,,
+REQ-679,"Ancestor/ Descendant relationship: Provide the capability
+ to view a Tag’s origin",dii,,
+REQ-680,"Uses/Used by relationship: Provide the capability to view a complex 
+Container Tag’s parent/child relationship",dii,,
+REQ-681,"Data type information: Provide the capability to view a tag’s data type
+ and related information.",dii,,
+REQ-682,"Versioning relationship: Provide the capability to view an Information 
+resource’s versions",dii,,
+REQ-683,"Reference Sets: Provide the capability to view text related to the domai
+ values or the related reference set",dii,,
+REQ-684,"Amplifying information: Provide the capability to view other information 
+resources such as ERwin models, DTDs, documents, etc., which describe or 
+otherwise provide amplifying information.",dii,,
+REQ-685,View the XML Tags via a tree/hierarchy structure or tabular format.,dii,,
+REQ-686,"View the XML Tags by giving the user multiple search 
+options to find a specific Tag.",dii,,
+REQ-687,"View the XML tags by giving the user the search option to find all 
+tags of a given subscriber/author.",dii,,
+REQ-688,"Each Information Resource will have its own web page to allow the user 
+to view all pertinent information, according to its information resource type.",dii,,
+REQ-689,"View the Information Resource Submittal Package containing the following 
+Information Resource artifacts: XML Tag Specification, XML Spec 
+(i.e. DTD, DCD etc.), Sample of XML document of the tag to be submitted.",dii,,
+REQ-690,"Display an XML Tag Specification form to the author of a given information 
+resource. This XML Tag Spec will be used for inputting the requesting information
+ for a specific Information Resource.",dii,,
+REQ-691,"Provide capabilities to download the XML Tags or other
+selected Information Resources.",dii,,
+REQ-692,"Catalog entities and attributes within servers to enable browsing, 
+searching, retrieving of data related to XML sources.",dii,,
+REQ-693,Process ANSI standard SQL as specified in FIPS PUB 127-2,dii,,
+REQ-694,"Establish rules to ensure maximum semantic understanding 
+of a term as it appears in an XML document",dii,,
+REQ-695,"Provide a capability to subscribe for notification of changes to 
+Communities of Interest (COE) or Information Resources.",dii,,
+REQ-696,"create and manage usernames, superusers",dii,,
+REQ-697,"Establish acceptable naming convention not to be in conflict with the DOD data 
+standards convention and establish a relationship to other naming conventions.",dii,,
+REQ-698,"Create a naming structure within the COE architecture to express the context 
+and relationship of the naming convention to other naming conventions 
+specified in the I&RTS.",dii,,
+REQ-699,"Define a set of metadata tags, information attributed to metadata tags 
+(meta-metadata) and other related terms for the maintenance 
+and control of XML tags.",dii,,
+REQ-700,Review/approve submission,dii,,
+REQ-701,Monitor changes to data models recorded in Registry,dii,,
+REQ-702,pass request off to … (per explicit federation agreements),dii,,
+REQ-703,Design the schema for an XML document,dii,,
+REQ-704,"Check against standard (e.g., style guide wizard for tags)",dii,,
+REQ-705,Use and reference existing tags and associated semantic structures,dii,,
+REQ-706,"Use & reference existing tags & associated semantic 
+structures (extracted from Registry)",dii,,
+REQ-707,create new tags & associated semantic structures,dii,,
+REQ-708,interchange w/other design tools & environments,dii,,
+REQ-709,Record semantic structure in JTA-compliant formalism,dii,,
+REQ-710,Generate standard views,dii,,
+REQ-711,Version metadata objects,dii,,
+REQ-712,Generate xml & schema documents,dii,,
+REQ-713,Generate a document that includes (by ref or by value) a schema,dii,,
+REQ-714,"Develop scheme to permit dynamic cross-referencing 
+and indexing of XML objects.",dii,,
+REQ-715,Generate language (natural language) and charset values,dii,,
+REQ-716,Extract views of data,dii,,
+REQ-717,"Disassemble document to materialize different query results
+ into different tree structure",dii,,
+REQ-718,"Transmit sufficient metadata to construct alternate, semantically-valid
+ views (e.g., XSL)",dii,,
+REQ-719,Consume xml & schema documents,dii,,
+REQ-720,"Create validation constraints shall enable a meaningful sharing of
+ XML-based schemas and related information.",dii,,
+REQ-721,"Extract semantically-valid views from an XML document (e.g., XSL)",dii,,
+REQ-722,Disassemble hierarchical view to relational representation,dii,,
+REQ-723,The Registry shall provide standard APIs as specified in Appendix B.,dii,,
+REQ-724,DATA ACCESS SERVICES INTERNAL INTERFACE REQUIREMENTS,dii,,
+REQ-725,The XS function shall provide standard APIs as specified in Appendix C.,dii,,
+REQ-726,"The XS shall internally interface (transparent to the operator) with the 
+existing data elements 
+of the DBIF, DAC, and COTS RDBMS products.",dii,,
+REQ-727,REGISTRY SERVICES ENVIRONMENT REQUIREMENTS,dii,,
+REQ-728,"The Registry software shall be portable and required to 
+execute on COE-compliant platforms.",dii,,
+REQ-729,PERSONNEL-RELATED REQUIREMENTS,dii,,
+REQ-730,"Not applicable. Personnel requirements shall be determined by the developers of 
+the system in which the XS module is embedded",dii,,
+REQ-731,TRAINING-RELATED REQUIREMENTS,dii,,
+REQ-732,"Not applicable. Training requirements shall be determined by the developers of the 
+system in which the XS module is embedded.",dii,,
+REQ-733,LOGISTICS-RELATED REQUIREMENTS,dii,,
+REQ-734,"The XS developer is responsible for software maintenance, software 
+support, and software updates. The DISA Configuration Manager (CM) is responsible 
+for distribution of the XS 
+product to system developers.",dii,,
+REQ-735,PACKAGING REQUIREMENTS,dii,,
+REQ-736,The XS software shall be delivered in accordance with DII COE guidelines.,dii,,
+REQ-737,PRECEDENCE AND CRITICALITY OF REQUIREMENTS,dii,,
+REQ-738,"The following table depicts the mapping of the requirements in Section 3 to their corresponding precedence and criticality code and to other related requirements within the XS SRS. 
+The precedence and criticality codes are the following:",dii,,
+REQ-739,QUALIFICATION PROVISIONS,dii,,
+REQ-740,"COE Software will be qualified through formal validation tests of the 
+SRS level requirements. The Qualification Methods applied to the software shall include 
+test, demonstration, 
+analysis, and inspection (T, D, A, I).",dii,,
+REQ-741,"TEST. A qualification method that is carried out by operation of the item/component/I/F (or some part of the computer S/W configuration item, etc.) and that relies on 
+the collection and subsequent examination of data.",dii,,
+REQ-742,"DEMONSTRATIONS
+A qualification method that is carried out by operation of the 
+item/component/I/F (or some part of the computer S/W configuration item, etc.), 
+and that relies on observable functional operation not requiring the use of 
+elaborate instrumentation or special test equipment.",dii,,
+REQ-743,"ANALYSIS
+A qualification method that is carried out by the processing 
+of accumulated data. An example of accumulated data is the compilation of 
+data obtained from other qualification methods. Examples of the processing 
+of accumulated 
+data are interpretations or extrapolations made from the data.",dii,,
+REQ-744,"INSPECTION
+A qualification method that is carried out by visual examination, physical manipulation, or measurement to verify that the requirements have been satisfied",dii,,
+REQ-745,REQUIREMENTS TRACEABILITY,dii,,
+REQ-746,Provided under separate document.,dii,,
+REQ-747,ACRONYMS & ABBREVIATIONS,dii,,
+REQ-748,"ACCS
+Army Command and Control Systems",dii,,
+REQ-749,"GCCS-AAGCCS
+Army Global Command and Control System- Army",dii,,
+REQ-750,"ANSI
+American National Standards Institute",dii,,
+REQ-751,"API 
+Application Programming Interface",dii,,
+REQ-752,"ASCII 
+American Standard Code Information Interchange",dii,,
+REQ-753,"ASCII RTF 
+American Standard Code Information Interchange Rich Text Format",dii,,
+REQ-754,"ASRD AWIS 
+Software Requirements Specification Document",dii,,
+REQ-755,"ATCCS 
+Army Tactical Command and Control Systems",dii,,
+REQ-756,"AWIS  
+Army WWMCCS Information System",dii,,
+REQ-757,"CASS
+Common ACCS Support Software",dii,,
+REQ-758,"CLI 
+Client Library Interface",dii,,
+REQ-759,"CM
+Configuration Manager",dii,,
+REQ-760,"COE
+Common Operating Environment",dii,,
+REQ-761,"COTS
+Commercial Off-The-Shelf",dii,,
+REQ-762,"DAC
+Discretionary Access Control",dii,,
+REQ-763,"XS
+Data Access Service",dii,,
+REQ-764,"DBIF
+Database Interface",dii,,
+REQ-765,"DBMS
+Database Management System",dii,,
+REQ-766,"DATATWG
+Data Access Services Technical Working Group",dii,,
+REQ-767,"DCE
+Distributing Computing Environment",dii,,
+REQ-768,"DDL
+Data Definition Language",dii,,
+REQ-769,"DDS
+Data Distribution System",dii,,
+REQ-770,"DES
+Data Encryption Standard",dii,,
+REQ-771,"DID 
+Data Item Description",dii,,
+REQ-772,"DII 
+Defense Information Infrastructure",dii,,
+REQ-773,"DISA 
+Defense Information Systems Agency",dii,,
+REQ-774,"DML 
+Data Manipulation Language",dii,,
+REQ-775,"DoD
+Department of Defense",dii,,
+REQ-776,"FIPS PUB  
+Federal Information Processing Standards Publication",dii,,
+REQ-777,"FMWG
+File Management Working Group",dii,,
+REQ-778,"GCCS  
+Global Command and Control Systems",dii,,
+REQ-779,"GOTS
+Government Off-The-Shelf",dii,,
+REQ-780,"GUI
+Graphical User Interface",dii,,
+REQ-781,"IAW 
+in accordance with",dii,,
+REQ-782,"JMCIS
+Joint Maritime Command Information System",dii,,
+REQ-783,"JOBES
+Joint Operation Planning and Execution System",dii,,
+REQ-784,"MAC
+Mandatory Access Control",dii,,
+REQ-785,"MCG&I
+Mapping, Charting, Geodesy and Imagery",dii,,
+REQ-786,"MIL-STD 
+Military Standard",dii,,
+REQ-787,"MSB
+Most Significant Bit",dii,,
+REQ-788,"OS  
+Operating System",dii,,
+REQ-789,"POSIX
+Portable Operating System Interface for Computing Environments",dii,,
+REQ-790,"RAID
+Redundant Array of Inexpensive Disks",dii,,
+REQ-791,"RDA 
+Remote Database Access",dii,,
+REQ-792,"RDBMS 
+Relational Database Management System",dii,,
+REQ-793,"RISC
+Reduced Instruction Set Computer",dii,,
+REQ-794,"SECTWG
+Security Services Technical Working Group",dii,,
+REQ-795,"SMM
+Systems Management Manual",dii,,
+REQ-796,"SQL
+Structured Query Language",dii,,
+REQ-797,"SRI 
+Standing Request for Information",dii,,
+REQ-798,"SRS
+Software Requirements Specification",dii,,
+REQ-799,"SSDD
+Support Software Design Document",dii,,
+REQ-800,"STACCS
+Standard Theater Army Command And Control System",dii,,
+REQ-801,"WWMCCS 
+World-Wide Military Command and Control System",dii,,
+REQ-802,"Automatically:
+ Indicates processing initiated during execution of other processes, 
+but dependent on information and/or parameters to be generated or supplied to 
+these other processes. The information / parameters may be data dependent, or 
+application dependent, or dependent on a manual process/human intervention. 
+It will include controls qualifying the processing involved.",dii,,
+REQ-803,"Business Rule:
+A narrative description of policies, procedures, or principles within 
+an organization. Business rules can be divided in to 
+four categories: definitions, facts, constraints, and derivations.",dii,,
+REQ-804,Definitions are business rules that define entities and attributes.,dii,,
+REQ-805,"Facts are either links (relationships) between entities or associations 
+between an entity and attributes",dii,,
+REQ-806,"Constraints are conditions about the data that must always be true. 
+They are the integrity rules that protect the data in the eventual database.",dii,,
+REQ-807,"Derivations are business rules that materialize a new piece of information (often attribute values) from other pieces of information. For example, a mathematical derivation might specify that you can obtain a person's 
+age by subtracting his or her birth date from the current date.",dii,,
+REQ-808,"Commit/Rollback:
+An individual transaction is processed (commit) or discarded (rollback) by the proponent maintainer 
+of the data items involved.",dii,,
+REQ-809,"Discretionary Access Controls (DAC):
+A means of restricting access to objects based on the identity of subjects or groups to which they belong. The controls are discretionary in the sense that a subject with a certain access permission is capable 
+of passing that permission on to any other subject.",dii,,
+REQ-810,"Dynamically Generated Processing:
+Indicates processing initiated during execution of other processes, 
+but dependent upon information and/or parameters to be generated or supplied 
+to these other processes. The information/parameters may be data dependent, 
+or application dependent, or dependent on a manual process/human intervention. It will 
+include controls qualifying the processing involved.",dii,,
+REQ-811,"Location Transparency:
+occurs when the physical location of data is transparent to the 
+applications and users of the database system. For example, a view that joins 
+table data from several databases provides location transparency because the 
+user of the view 
+does not need to know where the data originates from.",dii,,
+REQ-812,"Mandatory Access Control (MAC): 
+Imediates access to an object based on the clearance level of the 
+subject (user) and the sensitivity label of the object. (These controls are always 
+enforced above any discretionary control implemented by users).",dii,,
+REQ-813,"Mirrored Databases:
+Replication and maintenance of a database on a transaction basis 
+for the purpose of rapid error or failure recovery as supported by the resident COTS 
+RDBMS own system utilities and operating system.",dii,,
+REQ-814,"Object:
+A passive entity that contains or receives information. 
+Access to an object potentially implies access to the information it 
+contains. Examples of objects are records, blocks, pages, segments, 
+files, directories, directory trees, and programs, as well as bits, bytes, 
+words, fields, processors, 
+video displays, keyboards, clocks, printers, and network nodes.",dii,,
+REQ-815,"Proponent Scheme:
+Describes the sites at which databases are replicated and also 
+who owns and has update authority with respect to the data at each site. It refers to 
+proponency at the source and record level.",dii,,
+REQ-816,"Redundant Array of Inexpensive Disks (RAID):
+A RAID system appears as one very large, reliable disk to the CPU. 
+The main reason for using RAID storage is its reliability. RAID has the same 
+advantages as 
+shadowing and striping at a lower cost. There are several types/levels of RAID 
+implementations, including: RAID 0 (known as disk striping), RAID 1 (known as 
+disk shadowing), RAID 3 (in which data is distributed in small increments across 
+all data disks and adds a parity value to a separate disk for recovery if any disk fails, 
+RAID 4 (in which data is distributed in large chunks across all data disks and also has
+a single parity disk. RAID 4 intended to overcome performance penalties of RAID 3 for 
+small transfers. RAID 5 (in which parity over RAID 3 or RAID 4 implementations), 
+and RAID 6 ( in which two parity disks in addition to data disks are used in an attempt 
+to further improve performance). In a RAID 5 implementation, the data is stored as are 
+check sums and other information about the contents of each disk in the array. If one 
+disk is lost, the others can use the check sums and other stored information to recreate 
+the lost data. Storage system vendors may provide additional enhancements to RAID level 
+implementations to improve performance and reliability.",dii,,
+REQ-817,"Remote Data Access (RDA): 
+is an ISO (9579) application layer interoperability standard 
+(protocol and formats) to support access by an application to a (remote) 
+DBMSs over an OSI network. The goal of RDA is to allow interoperability between 
+applications (clients) and databases (servers) of different manufacturers so that 
+an application is able to read and update data in remote databases via well defined 
+standards. RDA defines a set of client and server standards and a mapping of SQL 
+commands to these services. RDA also defines an interface to ISO (transaction processing) 
+two phase commit TP services in the case where updates to multiple remote databases 
+need to be coordinated. RDA does not yet define interoperability between server databases 
+(i.e. it is not yet a standard for distributed database management).",dii,,
+REQ-818,"Replication Scheme:
+Information that precisely identifies DBs, or partitions of DBs, to be 
+copied and/or distributed, replication schedules, 
+and master/remote sites that are to receive the copies.",dii,,
+REQ-819,"Spatial DBMS: 
+Geographic information system that organizes and maintains spatial 
+data (i.e. data with graphical attributes) in terms of type, scale, location(s), extent, 
+topology and geometry. Supports queries of spatial 
+data where the selection criteria are defined by spatial attributes.",dii,,
+REQ-820,"SRI:
+A Standing Request For Information (SRI) is a capability in which CASS monitors for the occurrence of conditions established by an application program, and notifies the calling or establishing application program when the conditions are satisfied. An SRI may 
+be one of three types: timer-based, data-based, or message-based.",dii,,
+REQ-821,"Subject: 
+An active entity, generally in the form of a person, process, or device that causes information to flow among objects or changes the system state. 
+Technically, a process/domain pair.",dii,,
+REQ-822,"Transaction Journalling:
+ Individual messages or database transactions are stored in a journal file, 
+which may be a linear 
+log file or a circular file.",dii,,
+REQ-823,The metadata and procedures are described for the current Information Resource Submittal Package .,dii,,
+REQ-824,"Metadata and Related Information
+An XML tag may be described as any object and is easily 
+created by anyone using a text editor. Although XML is a relatively new 
+technology, many developers are already using XML in operational COE 
+systems and have already created tags and specifications, many of which 
+may be inconsistent with tags used in other systems. So far, the burgeoning 
+sets of XML tags have 
+created redundancy and irrelevancy, and they lack validity.",dii,,
+REQ-825,"XML Registry. 
+To ensure interoperability, this registry provides a baseline 
+set of tags developed through coordination and approval among the Community. 
+The Registry allows a user to browse, search, and retrieve data that satisfy your 
+requirements. The Registry has a substring search capability so that the user may 
+easily find information resources that meet the criteria. The user may specify whether 
+to search for the term within 
+the name of the information resource or the definition or both.",dii,,
+REQ-826,"Developer's Role.
+Developers are urged to review the baseline tags, adopt 
+them where possible, and subscribe to future notifications about the tags. If, 
+after reviewing the tags in the Registry, you cannot reuse an existing specification 
+(a.k.a. Document Type Definition (DTD)) or existing tags, you may submit your 
+proposed tag to a Community of Interest (COI) and provide amplifying information 
+for all to understand the semantics for its proper use.",dii,,
+REQ-827,"COE Chief Engineer's Role.
+The COE Chief Engineer will approve a single Point of Contact (POC) 
+for a COI to manage the tags within that COI. The COE Chief Engineer will reserve 
+ultimate authority to mediate any 
+unresolved disputes within all COIs.",dii,,
+REQ-828,"The COE Data Engineering Team's Role.
+Tags and semantics will be analyzed to identify opportunities 
+to consolidate tags towards a single or a minimal number of representations. 
+A ""market forces"" model can also guide COE Data Engineering in identifying the weak 
+candidates from the strong.8",dii,,
+REQ-829,"The Community of Interest's POC's Role.
+(The information in the following section is current as of 17 May, 1999. 
+Please consult the Registry for the most authoritative list of information resources types.) 
+The POC responsibilities will include the transitioning of information resources from one 
+status to another. Table 1 lists the valid types of information resources. 
+The status levels are developmental, 
+candidate, approved, rejected, and retired.",dii,,
+REQ-830,information Resource Types,dii,,
+REQ-831,information Resource Association Types,dii,,
+REQ-832,"For Developers may submit and use information resources within the 
+Registry constitutes guidance in the generation and use of XML as an 
+authoritative source for approved XML data and metadata components.",dii,,
+REQ-833,Review Tags in Registry and decide what additions/modifications to submit (if any),dii,,
+REQ-834,Fill out one XML submission document to package multiple Tags,dii,,
+REQ-835,"Specify relationships among Tags, provide valid values, and add to submission package",dii,,
+REQ-836,Include amplifying info associated with specific Tag(s),dii,,
+REQ-837,Zip and attach submission package to e-mail message to: ____________________,dii,,
+REQ-838,"Establishing a new Information Resource. Follow these conventions for creating 
+new information resources for the Registry",dii,,
+REQ-839,Use "XML_Attributes" sparingly,dii,,
+REQ-840,"If the term is well recognized outside its container term, designate 
+it as an element. Example: CTRY_CD, CTRY_NM, CTRY_ABBRD_NM, CTRY_OFF_NM, 
+CTRY_SCP_NT_TX, and CTRY_PSTL_NM 
+are all characteristics (ER-attributes) for the entity CTRY. In the relational world, 
+they are columns within the table ctry, attributes of the entity ctry in er-modeling, 
+and member attributes in object modeling. It would be expected that a submitter 
+would identify them as attributes rather than elements. But if they were identified as 
+attributes of the element ctry, then the additional baggage (other attributes) must be 
+carried, or submitted as separate elements. We wish to limit the proliferation of tags, 
+so we strongly urge folks to use XML_Attributes sparingly.",dii,,
+REQ-841,"Initially, the Registry will not have keyword, thesaurus, or ontology 
+support but it will have a substring search for a number of fields, including definition. 
+Therefore, we urge submitters to include enough expressive terms so that COE developers 
+would easily find the term they might consider ""natural"" in the definition and find the 
+desirable tag for expressing that concept. Example: If the 
+registered tag is ORG_ID, the description that includes references",dii,,
+REQ-842,EXTERNAL PROGRAMMING INTERFACE,dii,,
+REQ-843,"The External Interfaces for the XS SRS are defined as interfaces to non-COE 
+components. Detailed information (as specified in paragraph 3.3 of the Data Item 
+Description DI-IPSC-81433) defining these interfaces will be specified during the 
+design phase of the COE XS architecture. 
+At this time such detailed information is unavailable.",dii,,
+REQ-844,INTERNAL PROGRAMMING INTERFACES,dii,,
+REQ-845,"The Internal Interfaces for the XS SRS are defined as interfaces to COE 
+components. Detailed information (as specified in paragraph 3.4 of the Data Item 
+Description DI-IPSC-81433) defining these interfaces will be specified during the 
+design phase of the COE XS architecture. At this time such detailed information is 
+unavailable.The COE components identified to-date are listed below.",dii,,
+REQ-846,MANAGEMENT SERVICES API,dii,,
+REQ-847,It incorporates other interfaces to:,dii,,
+REQ-848,Network Administration,dii,,
+REQ-849,System Administration,dii,,
+REQ-850,Security Administration,dii,,
+REQ-851,DISTRIBUTED SYSTEM SERVICES,dii,,
+REQ-852,COMMUNICATIONS SERVICES API,dii,,
+REQ-854,DISTRIBUTION AND OBJECT MANAGEMENT SERVICES,dii,,
+REQ-856,Distributed Computing Services,dii,,
+REQ-857,Data Interchange Services,dii,,
+REQ-858,APPLICATION SUPPORT SERVICES,dii,,
+REQ-859,PRESENTATION SERVICES,dii,,
+REQ-861,COMMON SUPPORT APPLICATIONS,dii,,
+REQ-863,SOFTWARE DEVELOPMENT SERVICES,dii,,
+REQ-865,INTERFACES TO COMMERCIAL PRODUCTS,dii,,
+REQ-866,"The Interfaces to Commercial Products for the XS SRS are identified below. 
+Detailed information (as specified in paragraph 3.3 of the Data Item Description 
+DI-IPSC-81433) defining these interfaces will be specified during the design phase of 
+the COE XS architecture. At this time such detailed information is unavailable.
+The three commercial products or environments identified for the COE are the following 
+Relational Database engines:",dii,,
