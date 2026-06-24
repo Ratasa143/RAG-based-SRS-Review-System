@@ -1,0 +1,27 @@
+IREB Glossary
+
+Avoid words such as:
+
+Fast
+
+Easy
+
+User-friendly
+
+Efficient
+
+Quick
+
+These are ambiguous.
+
+Instead specify measurable values.
+
+Example:
+
+Wrong:
+
+The system shall load quickly.
+
+Correct:
+
+The system shall load within 2 seconds.
